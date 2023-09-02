@@ -1,0 +1,8 @@
+name: AL_Base_Plugin
+version: '${project.version}'
+main: com.ardaslegends.albaseplugin.AL_Base_Plugin
+prefix: AL_Base_Plugin
+load: STARTUP
+authors: [Moritz Rohleder]
+description: A plugin handling the mc-serverside of our backend functionality
+website: https://ardas-legends.kekx.eu/AL-frontend/
