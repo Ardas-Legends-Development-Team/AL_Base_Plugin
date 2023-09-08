@@ -8,6 +8,14 @@ public final class AL_Base_Plugin extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
 
+        //setting up the configs
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
+        //Setting up the stockpile feature if enabled
+        if (getConfig().contains("feature.stockpile")) {
+            //TODO everything thats part of the stockpile feature
+        }
     }
 
     @Override
