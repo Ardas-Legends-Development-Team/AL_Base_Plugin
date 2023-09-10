@@ -1,0 +1,5 @@
+# The Backend Connection to be used for the HTTP-Requests
+backend:
+  prod: false
+  host: 'localhost' # PROD: ardas-legends.kekx.eu
+  port: 8080

@@ -1,0 +1,10 @@
+Changelog: AL_Base_Plugin
+Author: Anedhel
+Description:
+This plugin is a plugin design for the Ardas Legends Minecraft Server to integrate the Minecraft Server with the backend
+----------------------------------------------------------------------------------------------------------------------------
+Version: 0.1:
+
+Additions:
++ added the /stockpile command with the syntax /stockpile [info|stored|add] and the staff sub-command /stockpile [stored] [faction]
+----------------------------------------------------------------------------------------------------------------------------
