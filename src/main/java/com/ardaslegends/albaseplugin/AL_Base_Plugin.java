@@ -20,10 +20,13 @@ public final class AL_Base_Plugin extends JavaPlugin {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
-        StockpileConfig.addDefaults();
-
-        //registering the commands
-        getCommand("stockpile").setExecutor(new CommandStockpile());
+        //Setting up the stockpile feature if enabled
+        if (getConfig().contains("feature.stockpile")) {
+            //Setting up the stockpileConfig.yml
+            StockpileConfig.addDefaults();
+            //Registering the stockpile command
+            getCommand("stockpile").setExecutor(new CommandStockpile());
+        }
     }
 
     @Override

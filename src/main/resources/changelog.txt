@@ -8,3 +8,11 @@ Version: 0.1:
 Additions:
 + added the /stockpile command with the syntax /stockpile [info|stored|add] and the staff sub-command /stockpile [stored] [faction]
 ----------------------------------------------------------------------------------------------------------------------------
+Version: 0.2:
+
+Additions:
++ implemented a feature toggle within the config.yml
+
+Changes:
+* made the stockpile-feature toggable
+----------------------------------------------------------------------------------------------------------------------------
