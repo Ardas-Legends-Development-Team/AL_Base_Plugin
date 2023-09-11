@@ -60,7 +60,7 @@ public class CommandRPChar implements CommandExecutor {
         }
 
         //Setting up the players nickname to match the character name
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick " + target.getName() + charname);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick " + target.getName() + " " + charname);
         sender.sendMessage(msgPrefix + "The nickname of " + target.getName() + " is now " + charname);
 
         //Setting up the permissions of the player
@@ -93,8 +93,7 @@ public class CommandRPChar implements CommandExecutor {
      *                  "Mod","Admin","Dev","Owner"}
      * @return a String containing the constructed suffix
      */
-    private static String buildSuffix(boolean pvp, boolean leader,
-                                      String staffRole) {
+    private static String buildSuffix(boolean pvp, boolean leader, String staffRole) {
         StringBuilder sb = new StringBuilder();
         sb.append("&f");
         //Checking the PvP Argument
