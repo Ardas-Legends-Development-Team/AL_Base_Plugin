@@ -7,3 +7,4 @@ backend:
 #Feature toggle: Each feature can be toggled individually, true = feature on, false = feature of
 feature:
   stockpile: true
+  rpchar: true

@@ -1,5 +1,6 @@
 package com.ardaslegends.albaseplugin;
 
+import com.ardaslegends.albaseplugin.commands.CommandRPChar;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import org.bukkit.ChatColor;
@@ -26,6 +27,12 @@ public final class AL_Base_Plugin extends JavaPlugin {
             StockpileConfig.addDefaults();
             //Registering the stockpile command
             getCommand("stockpile").setExecutor(new CommandStockpile());
+        }
+
+        //Setting up the rpchar feature if enabled
+        if (getConfig().contains("feature.rpchar")) {
+            //Registering the rpchar command
+            getCommand("rpchar").setExecutor(new CommandRPChar());
         }
     }
 
