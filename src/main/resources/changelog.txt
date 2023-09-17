@@ -16,3 +16,8 @@ Additions:
 Changes:
 * made the stockpile-feature toggable
 ----------------------------------------------------------------------------------------------------------------------------
+Version: 0.3:
+
+Additions:
++ added the /rpchar command with the syntax /rpchar [ign] [charname] [pvp] [leader] [staff] {title}
+----------------------------------------------------------------------------------------------------------------------------
