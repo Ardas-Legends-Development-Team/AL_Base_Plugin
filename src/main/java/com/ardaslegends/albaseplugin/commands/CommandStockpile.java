@@ -49,7 +49,7 @@ public class CommandStockpile implements CommandExecutor {
                 //If the command has 2 arguments, it could be the staff version of /stockpile stored
                 if (args[0].equalsIgnoreCase("stored")) {
                     if (player.hasPermission("al.staff.stockpileStoredFaction")) {
-                        FactionStockpileModel factionStockpileModel = apiClient.getFactionStockpile(args[1]);
+                        FactionStockpileModel factionStockpileModel = apiClient.getFactionStockpile(args[1].replaceAll("_", "%20"));
                         if (factionStockpileModel.getFactionName() != null) {
                             player.sendMessage(msgPrefix
                                                + "The faction "
