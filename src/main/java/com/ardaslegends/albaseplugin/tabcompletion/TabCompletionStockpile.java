@@ -29,7 +29,7 @@ public class TabCompletionStockpile implements TabCompleter {
             return options;
         } else if (args.length == 2 && args[0].equalsIgnoreCase("stored")) {
             List<String> options = new ArrayList<>();
-            AL_Base_Plugin.getFactions().forEach(faction -> options.add(faction.getName()));
+            AL_Base_Plugin.getFactions().forEach(faction -> options.add(faction.getName().replace(' ', '_')));
             return options;
         }
 

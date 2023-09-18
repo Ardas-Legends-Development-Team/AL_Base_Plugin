@@ -18,10 +18,10 @@ import java.util.logging.Logger;
 public final class AL_Base_Plugin extends JavaPlugin {
 
     private static       AL_Base_Plugin     plugin;
+    private ALApiClient apiClient;
     private final        Logger             logger      = Bukkit.getServer().getLogger();
     private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
     private static final String             errorPrefix = ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
-    private static final ALApiClient        apiClient   = new ALApiClient();
     private static final List<FactionModel> factions    = new ArrayList<>();
 
     @Override
@@ -35,9 +35,12 @@ public final class AL_Base_Plugin extends JavaPlugin {
         //Setting up the stockpileConfig.yml
         StockpileConfig.addDefaults();
 
+        //set up the ALApiClient
+        apiClient = new ALApiClient();
+
         //Loading all Factions
         factions.addAll(setUpFactions());
-        logger.log(Level.INFO, factions.toString());
+        factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
 
         //Setting up the stockpile feature if enabled
         if (getConfig().contains("feature.stockpile")) {
