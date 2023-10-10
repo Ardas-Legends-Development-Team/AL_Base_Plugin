@@ -6,3 +6,51 @@ load: STARTUP
 authors: [Moritz Rohleder]
 description: A plugin handling the mc-serverside of our backend functionality
 website: https://ardas-legends.kekx.eu/AL-frontend/
+
+commands:
+  stockpile:
+    description: The command for stockpile features
+    permission: al.stockpile.*
+    usage: /<command> [info|stored|add]
+  rpchar:
+    description: The command to set a rpchar-player's title, nick, suffix and permissions
+    permission: al.staff.rpchar
+    usage: /<command> [ign] [charname] [pvp] [leader] [staff] {title}
+
+permissions:
+  al.*:
+    description: Permission to run all commands of all ardas-legends-plugins
+    default: op
+    children:
+      al.stockpile.*: true
+      al.staff.*: true
+      al.staff.rpchar: true
+      al.staff.stockpileStoredFaction: true
+  al.stockpile.*:
+    description: Permission to run the stockpile commands with it´s sub command.
+    default: op
+    children:
+      al.stockpile.info: true
+      al.stockpile.stored: true
+      al.stockpile.add: true
+  al.stockpile.info:
+    description: Permission to run /stockpile info
+    default: op
+  al.stockpile.stored:
+    description: Permission to run /stockpile stored
+    default: op
+  al.stockpile.add:
+    description: Permission to run /stockpile add
+    default: op
+  al.staff.*:
+    description: Permission to run all ardas legends staff commands
+    default: op
+    children:
+      al.staff.rpchar: true
+      al.staff.stockpileStoredFaction: true
+  al.staff.rpchar:
+    description: Permission to run the /rpchar command
+    default: op
+  al.staff.stockpileStoredFaction:
+    description: Permission for the command /stockpile stored [factionName]
+    default: op

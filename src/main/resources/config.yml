@@ -1,0 +1,10 @@
+# The Backend Connection to be used for the HTTP-Requests
+backend:
+  prod: false
+  host: ardas-legends.kekx.eu
+  port: 8080
+
+#Feature toggle: Each feature can be toggled individually, true = feature on, false = feature of
+feature:
+  stockpile: true
+  rpchar: true
