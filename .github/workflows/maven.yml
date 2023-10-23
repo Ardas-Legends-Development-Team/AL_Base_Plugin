@@ -28,4 +28,11 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: AL_Base-Plugin.jar
-        path: output
+        path: ${{ github.workspace }}
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2.1.1
+      with:
+        # Artifact name
+        name: AL_BASE-Plugin.jar
+        # Destination path
+        path: ${{ github.workspace }}
