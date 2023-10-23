@@ -27,5 +27,5 @@ jobs:
       run: mvn clean package
     - uses: actions/upload-artifact@v3
       with:
-        name: AL_Base-Plugin.jar
+        name: AL_Base-Plugin
         path: ${{ github.workspace }}/target/al-base-plugin-0.1.jar
