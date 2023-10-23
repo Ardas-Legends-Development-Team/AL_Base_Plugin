@@ -25,3 +25,7 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package
+    - uses: actions/upload-artifact@v3
+      with:
+        name: AL_Base-Plugin.jar
+        path: ~/target
