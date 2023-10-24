@@ -7,6 +7,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * All Methods and variables related to the Command RPChar are within this class
+ */
 public class CommandRPChar implements CommandExecutor {
 
     String msgPrefix = AL_Base_Plugin.getMsgPrefix();
@@ -50,7 +53,8 @@ public class CommandRPChar implements CommandExecutor {
         StringBuilder titleSb = new StringBuilder();
         if (args.length > 5) {
             for (int i = 5; i < args.length; i++) {
-                titleSb.append(args[i]);
+                titleSb.append(args[i])
+                       .append(" ");
             }
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
                                    "manuaddv " + target.getName() + " prefix "

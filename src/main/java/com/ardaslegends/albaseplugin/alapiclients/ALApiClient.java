@@ -24,6 +24,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The ALApiClient is the primary connection to the backend.
+ * From here all API Calls are made and handled
+ */
 public class ALApiClient {
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     private final FileConfiguration config = AL_Base_Plugin.getPlugin().getConfig();

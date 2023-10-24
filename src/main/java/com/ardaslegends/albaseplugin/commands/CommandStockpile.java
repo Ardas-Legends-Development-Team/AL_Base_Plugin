@@ -14,6 +14,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+/**
+ * All Methods and variables related to the Command Stockpile are within this class
+ */
 public class CommandStockpile implements CommandExecutor {
 
     private final FileConfiguration stockpileConfig =

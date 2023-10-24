@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The main class of the plugin, this is where all things come together.
+ */
 public final class AL_Base_Plugin extends JavaPlugin {
 
     private static       AL_Base_Plugin     plugin;
@@ -24,6 +27,13 @@ public final class AL_Base_Plugin extends JavaPlugin {
     private static final String             errorPrefix = ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
     private static final List<FactionModel> factions    = new ArrayList<>();
 
+    /**
+     * onEnable is being run whenever the plugin is started.
+     * It´s the entry point and thus the startup logic of the plugin.
+     * In here all Commands and Events need to be registered to the server
+     * and all Config files are to be set up here.
+     * Static information, like the Faction List, should be loaded from the backend within the startup logic as well.
+     */
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -56,6 +66,11 @@ public final class AL_Base_Plugin extends JavaPlugin {
         }
     }
 
+    /**
+     * onDisable is being run, when the plugin is shut down.
+     * It contains the shutdown logic for the plugin.
+     * Information that might need to be saved should be saved within here etc.
+     */
     @Override
     public void onDisable() {
         // Plugin shutdown logic

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+/**
+ * The StockpileConfig and all related things are defined in this class.
+ * This class also defines the default values for the StockpileConfig
+ */
 public class StockpileConfig {
 
     private static File stockpile;

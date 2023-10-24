@@ -8,6 +8,9 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The possible tab-completion arguments are defined within this class.
+ */
 public class TabCompletionStockpile implements TabCompleter {
 
     /**
