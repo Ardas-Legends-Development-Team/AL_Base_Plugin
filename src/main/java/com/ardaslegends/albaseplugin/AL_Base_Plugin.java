@@ -2,12 +2,12 @@ package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
 import com.ardaslegends.albaseplugin.commands.CommandRPChar;
-import com.ardaslegends.albaseplugin.commands.CommandReload;
+import com.ardaslegends.albaseplugin.commands.CommandALReload;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
 import com.ardaslegends.albaseplugin.models.FactionModel;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
-import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionReload;
+import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionStockpile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -56,8 +56,8 @@ public final class AL_Base_Plugin extends JavaPlugin {
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
 
         //Setting up the reload functionality, which can not be disabled
-        getCommand("reload").setExecutor(new CommandReload());
-        getCommand("reload").setTabCompleter(new TabCompletionReload());
+        getCommand("alreload").setExecutor(new CommandALReload());
+        getCommand("alreload").setTabCompleter(new TabCompletionALReload());
 
         //Setting up the stockpile feature if enabled
         if (getConfig().contains("feature.stockpile")) {

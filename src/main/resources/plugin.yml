@@ -16,7 +16,7 @@ commands:
     description: The command to set a rpchar-player's title, nick, suffix and permissions
     permission: al.staff.rpchar
     usage: /<command> [ign] [charname] [pvp] [leader] [staff] {title}
-  reload:
+  alreload:
     description: The command to reload a specific reloadable or all reloadable features
     permission: al.staff.reload
     usage: /<command> {reloadable feature}

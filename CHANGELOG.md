@@ -6,5 +6,5 @@ ___
 + implemented a feature toggle within the config.yml
 + added a TabCompletion for the /stockpile command
 + added the /rpchar command with the syntax `/rpchar [ign] [charname] [pvp] [leader] [staff] {title}`
-+ added the /reload command with the syntax `/reload {base|stockpile|factions}`
++ added the /reload command with the syntax `/alreload {base|stockpile|factions}`
 ___

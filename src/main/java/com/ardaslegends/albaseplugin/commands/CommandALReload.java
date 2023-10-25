@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class CommandReload implements CommandExecutor {
+public class CommandALReload implements CommandExecutor {
 
     String msgPrefix = AL_Base_Plugin.getMsgPrefix();
     String errorPrefix = AL_Base_Plugin.getErrorPrefix();
