@@ -2,9 +2,12 @@ package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
 import com.ardaslegends.albaseplugin.commands.CommandRPChar;
+import com.ardaslegends.albaseplugin.commands.CommandALReload;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
 import com.ardaslegends.albaseplugin.models.FactionModel;
+import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
+import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionStockpile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -51,6 +54,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         //Loading all Factions
         factions.addAll(setUpFactions());
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
+
+        //Setting up the reload functionality, which can not be disabled
+        getCommand("alreload").setExecutor(new CommandALReload());
+        getCommand("alreload").setTabCompleter(new TabCompletionALReload());
 
         //Setting up the stockpile feature if enabled
         if (getConfig().contains("feature.stockpile")) {
@@ -151,6 +158,32 @@ public final class AL_Base_Plugin extends JavaPlugin {
      */
     public void reload() {
         reloadConfig();
+        StockpileConfig.reload();
+        setUpFactions();
+    }
+
+    /**
+     * reloading a specific config, or the faction list, depending on the feature given
+     * Possible features are:
+     * - base: The base config of the plugin
+     * - stockpile: The stockpileConfig
+     * - factionList: The list of factions
+     * @param feature the feature to be reloaded
+     */
+    public void reload(Reloadables feature) {
+        switch (feature) {
+            case BASE:
+                reloadConfig();
+                break;
+            case STOCKPILE:
+                StockpileConfig.reload();
+                break;
+            case FACTIONS:
+                setUpFactions();
+                break;
+            default:
+                break;
+        }
     }
 
     public static AL_Base_Plugin getPlugin() {

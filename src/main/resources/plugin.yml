@@ -16,6 +16,10 @@ commands:
     description: The command to set a rpchar-player's title, nick, suffix and permissions
     permission: al.staff.rpchar
     usage: /<command> [ign] [charname] [pvp] [leader] [staff] {title}
+  alreload:
+    description: The command to reload a specific reloadable or all reloadable features
+    permission: al.staff.reload
+    usage: /<command> {reloadable feature}
 
 permissions:
   al.*:
@@ -48,9 +52,13 @@ permissions:
     children:
       al.staff.rpchar: true
       al.staff.stockpileStoredFaction: true
+      al.staff.reload: true
   al.staff.rpchar:
     description: Permission to run the /rpchar command
     default: op
   al.staff.stockpileStoredFaction:
     description: Permission for the command /stockpile stored [factionName]
+    default: op
+  al.staff.reload:
+    description: Permission to run the /reload command
     default: op
