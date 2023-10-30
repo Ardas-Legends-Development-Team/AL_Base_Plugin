@@ -1,4 +1,4 @@
-Licensor: (Moritz Rohleder)[https://github.com/MoritzRohleder]
+Licensor: [Moritz Rohleder](https://github.com/MoritzRohleder)
 
 ---
                       EUROPEAN UNION PUBLIC LICENCE v. 1.2
