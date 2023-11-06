@@ -2,6 +2,10 @@ package com.ardaslegends.albaseplugin.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * This is a Model for a Stockpile.
+ * This Model is used for the backend call of getting a FactionStockpile from the backend
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FactionStockpileModel {
     private String factionName;
