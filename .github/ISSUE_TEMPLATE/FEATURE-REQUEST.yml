@@ -6,8 +6,7 @@ labels: ["Feature-Request"]
 body: 
   - type: markdown
     attributes:
-      value: "Thank you for submitting a feature request. Please be aware, that this Request is **not guarantied** to be accepted and worked on."
-  # The user is supposed to chose which plugin the issue is for.
+      value: Please be aware, that this Request is not guarantied to be accepted and worked on.
   - type: dropdown
     id: project-selection
     attributes: 
