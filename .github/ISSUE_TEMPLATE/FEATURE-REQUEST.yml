@@ -5,7 +5,8 @@ labels: ["feature-request"]
 body: 
   - type: markdown
     attributes:
-      value: Please be aware, that this Request is not guarantied to be accepted and worked on.
+      value: Please be aware, that this Request is **not guarantied** to be accepted and worked on.
+  # The user is supposed to chose which plugin the issue is for.
   - type: dropdown
     id: project-selection
     attributes: 
