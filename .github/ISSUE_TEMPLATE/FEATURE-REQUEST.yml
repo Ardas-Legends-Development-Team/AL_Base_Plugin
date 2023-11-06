@@ -6,7 +6,7 @@ labels: ["Feature-Request"]
 body: 
   - type: markdown
     attributes:
-      value: Please be aware, that this Request is **not guarantied** to be accepted and worked on.
+      value: "Thank you for submitting a feature request. Please be aware, that this Request is **not guarantied** to be accepted and worked on."
   # The user is supposed to chose which plugin the issue is for.
   - type: dropdown
     id: project-selection
@@ -28,7 +28,7 @@ body:
       placeholder: Your Discord ID
     validations:
       required: true
-  #
+  # Textarea for the Feature Description
   - type: textarea
     id: feature-description
     attributes:
