@@ -31,7 +31,7 @@ public class CommandRPChar implements CommandExecutor {
         //If the argument count is too low
         // (We need at least 5 arguments and can have many more as each word of the title is one argument)
         if (args.length < 5) {
-            sender.sendMessage(msgPrefix + errorPrefix + "You have given to few arguments.");
+            sender.sendMessage(errorPrefix + "You have given to few arguments.");
             return false;
         }
 

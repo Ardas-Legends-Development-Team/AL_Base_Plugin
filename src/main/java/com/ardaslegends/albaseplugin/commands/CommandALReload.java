@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 
 public class CommandALReload implements CommandExecutor {
 
-    String msgPrefix = AL_Base_Plugin.getMsgPrefix();
     String errorPrefix = AL_Base_Plugin.getErrorPrefix();
 
     /**
@@ -32,10 +31,10 @@ public class CommandALReload implements CommandExecutor {
                 case "factions":
                     AL_Base_Plugin.getPlugin().reload(Reloadables.FACTIONS);
                 default:
-                    sender.sendMessage(msgPrefix + errorPrefix + "Nothing to reload with that name.");
+                    sender.sendMessage(errorPrefix + "Nothing to reload with that name.");
             }
         } else {
-            sender.sendMessage(msgPrefix + errorPrefix + "Wrong argument count.");
+            sender.sendMessage(errorPrefix + "Wrong argument count.");
             return false;
         }
         return true;

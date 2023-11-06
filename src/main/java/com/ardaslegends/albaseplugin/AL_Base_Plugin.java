@@ -5,6 +5,7 @@ import com.ardaslegends.albaseplugin.commands.CommandRPChar;
 import com.ardaslegends.albaseplugin.commands.CommandALReload;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
 import com.ardaslegends.albaseplugin.models.FactionModel;
+import com.ardaslegends.albaseplugin.resources.LastSeenJSON;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
@@ -13,8 +14,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,11 +25,12 @@ import java.util.logging.Logger;
 public final class AL_Base_Plugin extends JavaPlugin {
 
     private static       AL_Base_Plugin     plugin;
-    private ALApiClient apiClient;
-    private final        Logger             logger      = Bukkit.getServer().getLogger();
+    private static       ALApiClient apiClient;
+    private static final Logger             logger      = Bukkit.getServer().getLogger();
     private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
-    private static final String             errorPrefix = ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
-    private static final List<FactionModel> factions    = new ArrayList<>();
+    private static final String             errorPrefix = msgPrefix + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
+    private static final List<FactionModel>     factions           = new ArrayList<>();
+    private static       HashMap<UUID, LocalDateTime> lastSeenFacLeaders = new HashMap<>();
 
     /**
      * onEnable is being run whenever the plugin is started.
@@ -54,6 +56,9 @@ public final class AL_Base_Plugin extends JavaPlugin {
         //Loading all Factions
         factions.addAll(setUpFactions());
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
+
+        //Loading the lastSeen.json
+        lastSeenFacLeaders = LastSeenJSON.load();
 
         //Setting up the reload functionality, which can not be disabled
         getCommand("alreload").setExecutor(new CommandALReload());
@@ -81,6 +86,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        LastSeenJSON.save(lastSeenFacLeaders);
     }
 
     /**
@@ -153,6 +159,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         return factionModelList;
     }
 
+    private void saveLastSeen() {
+
+    }
+
     /**
      * reloading all config files
      */
@@ -190,6 +200,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         return plugin;
     }
 
+    public static Logger getALLogger() {
+        return logger;
+    }
+
     public static String getMsgPrefix() {
         return msgPrefix;
     }
@@ -200,5 +214,9 @@ public final class AL_Base_Plugin extends JavaPlugin {
 
     public static List<FactionModel> getFactions() {
         return factions;
+    }
+
+    public static HashMap<UUID, LocalDateTime> getLastSeenFacLeaders() {
+        return lastSeenFacLeaders;
     }
 }
