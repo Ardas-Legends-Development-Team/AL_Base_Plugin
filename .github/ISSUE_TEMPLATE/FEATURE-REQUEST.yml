@@ -1,7 +1,8 @@
+# An issue form to create feature-requests, for players to use.
 name: Feature Request
 description: Request a feature
 projects: "Ardas Legends Plugin"
-title: "[Feature]: "
+title: "[Feature-Request]: "
 labels: ["Feature-Request"]
 body: 
   - type: markdown

@@ -1,0 +1,43 @@
+# An issue form for the devs to create new feature issues
+name: New Feature
+description: (Dev only) Creating a issue for a new feature
+projects: "Ardas Legends Plugin"
+title: "Feature: "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: This template is to **only** be used by the developers.
+  # The user is supposed to chose which plugin the issue is for.
+  - type: dropdown
+    id: project-selection
+    attributes:
+      label: Project
+      description: For which Project is this request
+      multiple: false
+      options:
+        - AL_Base_Plugin
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: Autor
+      description: Who creates this issue
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Description of the new Feature
+      placeholder: "Please describe the feature you envision"
+    validations:
+      required: true
+  - type: textarea
+    id: accepteance-criteria
+    attributes:
+      label: ACs
+      description: What needs to be fullfilled for this feature to be done?
+      placeholder: "Please provide a list of all things that need to be done for this issue to be done."
