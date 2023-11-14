@@ -1,6 +1,8 @@
+# An issue form to create feature-requests, for players to use.
 name: Feature Request
 description: Request a feature
-title: "[Feature]: "
+projects: "Ardas Legends Plugin"
+title: "[Feature-Request]: "
 labels: ["Feature-Request"]
 body: 
   - type: markdown
@@ -18,6 +20,7 @@ body:
       default: 0
     validations:
       required: true
+  # In order to be able to contact the user and give feedback, we want his/her contact information
   - type: input
     id: contact
     attributes:
