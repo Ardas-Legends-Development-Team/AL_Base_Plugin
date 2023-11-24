@@ -8,17 +8,30 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FactionModel {
-    private String name;
+    private String nameOfFaction;
+    private String leaderIgn;
 
-    public FactionModel (String name) {
-        this.name = name;
+    public FactionModel (String nameOfFaction) {
+        this.nameOfFaction = nameOfFaction;
     }
 
     public FactionModel () {
 
     }
 
+    public void setNameOfFaction(String nameOfFaction) {
+        this.nameOfFaction = nameOfFaction;
+    }
+
+    public void setLeaderIgn(String leaderIgn) {
+        this.leaderIgn = leaderIgn;
+    }
+
     public String getName() {
-        return name;
+        return nameOfFaction;
+    }
+
+    public String getLeader() {
+        return leaderIgn;
     }
 }
