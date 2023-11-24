@@ -1,1 +1,5 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Discord Questions
+    url: https://discord.gg/bbAZkqanF7
+    about: Please ask Questions here in our discord.
