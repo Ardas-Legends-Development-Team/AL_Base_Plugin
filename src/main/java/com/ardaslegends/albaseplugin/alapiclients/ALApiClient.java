@@ -19,7 +19,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,9 +131,10 @@ public class ALApiClient {
      */
     public List<FactionModel> getFactions() {
         List<FactionModel> factions = new ArrayList<>();
-        FactionModel[] factionArray = null;
 
-        String requestUri = scheme + "://" + host + ":" + port + "/api/faction";
+        String amount = "?size=100";
+
+        String requestUri = scheme + "://" + host + ":" + port + "/api/faction" + amount;
 
         logger.log(Level.INFO, "Sending request: " + requestUri);
 
@@ -142,7 +142,7 @@ public class ALApiClient {
         CloseableHttpResponse response = null;
         try {
             response = httpClient.execute(request);
-        } catch (IOException e) {
+            } catch (IOException e) {
             logger.log(Level.WARNING, e.getMessage());
         }
 
@@ -150,7 +150,8 @@ public class ALApiClient {
             if (response.getStatusLine().getStatusCode() == 200) {
                 HttpEntity entity = response.getEntity();
                 try {
-                    factionArray = mapper.readValue(EntityUtils.toString(entity), FactionModel[].class);
+                    String entityString = EntityUtils.toString(entity);
+                    factions = mapper.readValue(entityString, FactionResponseWrapper.class).getContent();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -163,9 +164,6 @@ public class ALApiClient {
         } else {
             logger.log(Level.WARNING, "No response received from the backend");
         }
-
-        assert factionArray != null;
-        Collections.addAll(factions, factionArray);
 
         return factions;
     }
