@@ -55,7 +55,6 @@ public final class AL_Base_Plugin extends JavaPlugin {
 
         //Loading all Factions
         factions.addAll(setUpFactions());
-        factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
 
         //Loading the lastSeen.json
         lastSeenFacLeaders = LastSeenJSON.load();
@@ -95,68 +94,9 @@ public final class AL_Base_Plugin extends JavaPlugin {
      * @return A List of Faction Models containing all relevant factions of the server
      */
     private List<FactionModel> setUpFactions(){
-        List<FactionModel> factionModelList = new ArrayList<>();
-        FactionModel angmar = new FactionModel("Angmar");
-        factionModelList.add(angmar);
-        FactionModel bree = new FactionModel("Bree");
-        factionModelList.add(bree);
-        FactionModel dale = new FactionModel("Dale");
-        factionModelList.add(dale);
-        FactionModel dolAmroth = new FactionModel("Dol Amroth");
-        factionModelList.add(dolAmroth);
-        FactionModel dolGuldur = new FactionModel("Dol Guldur");
-        factionModelList.add(dolGuldur);
-        FactionModel dorwinion = new FactionModel("Dorwinion");
-        factionModelList.add(dorwinion);
-        FactionModel dunland = new FactionModel("Dunland");
-        factionModelList.add(dunland);
-        FactionModel durinsFolk = new FactionModel("Durin's Folk");
-        factionModelList.add(durinsFolk);
-        FactionModel eredLuin = new FactionModel("Ered Luin");
-        factionModelList.add(eredLuin);
-        FactionModel gondor = new FactionModel("Gondor");
-        factionModelList.add(gondor);
-        FactionModel gulfOfHarad = new FactionModel("Gulf of Harad");
-        factionModelList.add(gulfOfHarad);
-        FactionModel gundabad = new FactionModel("Gundabad");
-        factionModelList.add(gundabad);
-        FactionModel halfTrolls = new FactionModel("Half-Trolls");
-        factionModelList.add(halfTrolls);
-        FactionModel harnennor = new FactionModel("Harnennor");
-        factionModelList.add(harnennor);
-        FactionModel hobbits = new FactionModel("Hobbits");
-        factionModelList.add(hobbits);
-        FactionModel isengard = new FactionModel("Isengard");
-        factionModelList.add(isengard);
-        FactionModel lindon = new FactionModel("Lindon");
-        factionModelList.add(lindon);
-        FactionModel lothlorien = new FactionModel("Lothlórien");
-        factionModelList.add(lothlorien);
-        FactionModel mordor = new FactionModel("Mordor");
-        factionModelList.add(mordor);
-        FactionModel morwaith = new FactionModel("Morwaith");
-        factionModelList.add(morwaith);
-        FactionModel nomads = new FactionModel("Nomads");
-        factionModelList.add(nomads);
-        FactionModel rangers = new FactionModel("Rangers of the North");
-        factionModelList.add(rangers);
-        FactionModel rhudel = new FactionModel("Rhúdel");
-        factionModelList.add(rhudel);
-        FactionModel rivendell = new FactionModel("Rivendell");
-        factionModelList.add(rivendell);
-        FactionModel rohan = new FactionModel("Rohan");
-        factionModelList.add(rohan);
-        FactionModel southronCoast = new FactionModel("Southron Coast");
-        factionModelList.add(southronCoast);
-        FactionModel taurethrim = new FactionModel("Taurethrim");
-        factionModelList.add(taurethrim);
-        FactionModel umbar = new FactionModel("Umbar");
-        factionModelList.add(umbar);
-        FactionModel woodlandRealm = new FactionModel("Woodland Realm");
-        factionModelList.add(woodlandRealm);
-        FactionModel wanderer = new FactionModel("Wanderer");
-        factionModelList.add(wanderer);
-        return factionModelList;
+        List<FactionModel> factions = apiClient.getFactions();
+        factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
+        return factions;
     }
 
     private void saveLastSeen() {

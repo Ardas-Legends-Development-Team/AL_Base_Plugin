@@ -1,0 +1,40 @@
+# An issue form to create feature-requests, for players to use.
+name: Feature Request
+description: Request a feature
+projects: "Ardas Legends Plugin"
+title: "[Feature-Request]: "
+labels: ["Feature-Request"]
+body: 
+  - type: markdown
+    attributes:
+      value: "Thank you for submitting a feature request. Please be aware, that this Request is **not guarantied** to be accepted and worked on."
+  # The user is supposed to chose which plugin the issue is for.
+  - type: dropdown
+    id: project-selection
+    attributes: 
+      label: Project
+      description: For which Project is this request
+      multiple: false
+      options:
+      - AL_Base_Plugin
+      default: 0
+    validations:
+      required: true
+  # In order to be able to contact the user and give feedback, we want his/her contact information
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you, if we need more infomation
+      placeholder: Your Discord ID
+    validations:
+      required: true
+  # Textarea for the Feature Description
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature-Description
+      description: Please discribe the Feature
+      placeholder: "Please describe in detail, how you imagine the feature to work."
+    validations:
+      required: true
