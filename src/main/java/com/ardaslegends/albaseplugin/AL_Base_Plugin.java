@@ -1,6 +1,7 @@
 package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
+import com.ardaslegends.albaseplugin.commands.CommandLeaderActivity;
 import com.ardaslegends.albaseplugin.commands.CommandRPChar;
 import com.ardaslegends.albaseplugin.commands.CommandALReload;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
@@ -8,13 +9,14 @@ import com.ardaslegends.albaseplugin.models.FactionModel;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
+import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionLeaderActivity;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionStockpile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,11 +26,11 @@ import java.util.logging.Logger;
 public final class AL_Base_Plugin extends JavaPlugin {
 
     private static       AL_Base_Plugin     plugin;
-    private ALApiClient apiClient;
-    private final        Logger             logger      = Bukkit.getServer().getLogger();
+    private static       ALApiClient apiClient;
+    private static final Logger             logger      = Bukkit.getServer().getLogger();
     private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
-    private static final String             errorPrefix = ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
-    private static final List<FactionModel> factions    = new ArrayList<>();
+    private static final String             errorPrefix = msgPrefix + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
+    private static final List<FactionModel>     factions           = new ArrayList<>();
 
     /**
      * onEnable is being run whenever the plugin is started.
@@ -53,11 +55,14 @@ public final class AL_Base_Plugin extends JavaPlugin {
 
         //Loading all Factions
         factions.addAll(setUpFactions());
-        factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
 
         //Setting up the reload functionality, which can not be disabled
         getCommand("alreload").setExecutor(new CommandALReload());
         getCommand("alreload").setTabCompleter(new TabCompletionALReload());
+
+        //Setting up the leaderActivity Command, that we don´t need to toggle
+        getCommand("leaderactivity").setExecutor(new CommandLeaderActivity());
+        getCommand("leaderactivity").setTabCompleter(new TabCompletionLeaderActivity());
 
         //Setting up the stockpile feature if enabled
         if (getConfig().contains("feature.stockpile")) {
@@ -80,7 +85,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
     }
 
     /**
@@ -89,68 +94,9 @@ public final class AL_Base_Plugin extends JavaPlugin {
      * @return A List of Faction Models containing all relevant factions of the server
      */
     private List<FactionModel> setUpFactions(){
-        List<FactionModel> factionModelList = new ArrayList<>();
-        FactionModel angmar = new FactionModel("Angmar");
-        factionModelList.add(angmar);
-        FactionModel bree = new FactionModel("Bree");
-        factionModelList.add(bree);
-        FactionModel dale = new FactionModel("Dale");
-        factionModelList.add(dale);
-        FactionModel dolAmroth = new FactionModel("Dol Amroth");
-        factionModelList.add(dolAmroth);
-        FactionModel dolGuldur = new FactionModel("Dol Guldur");
-        factionModelList.add(dolGuldur);
-        FactionModel dorwinion = new FactionModel("Dorwinion");
-        factionModelList.add(dorwinion);
-        FactionModel dunland = new FactionModel("Dunland");
-        factionModelList.add(dunland);
-        FactionModel durinsFolk = new FactionModel("Durin's Folk");
-        factionModelList.add(durinsFolk);
-        FactionModel eredLuin = new FactionModel("Ered Luin");
-        factionModelList.add(eredLuin);
-        FactionModel gondor = new FactionModel("Gondor");
-        factionModelList.add(gondor);
-        FactionModel gulfOfHarad = new FactionModel("Gulf of Harad");
-        factionModelList.add(gulfOfHarad);
-        FactionModel gundabad = new FactionModel("Gundabad");
-        factionModelList.add(gundabad);
-        FactionModel halfTrolls = new FactionModel("Half-Trolls");
-        factionModelList.add(halfTrolls);
-        FactionModel harnennor = new FactionModel("Harnennor");
-        factionModelList.add(harnennor);
-        FactionModel hobbits = new FactionModel("Hobbits");
-        factionModelList.add(hobbits);
-        FactionModel isengard = new FactionModel("Isengard");
-        factionModelList.add(isengard);
-        FactionModel lindon = new FactionModel("Lindon");
-        factionModelList.add(lindon);
-        FactionModel lothlorien = new FactionModel("Lothlórien");
-        factionModelList.add(lothlorien);
-        FactionModel mordor = new FactionModel("Mordor");
-        factionModelList.add(mordor);
-        FactionModel morwaith = new FactionModel("Morwaith");
-        factionModelList.add(morwaith);
-        FactionModel nomads = new FactionModel("Nomads");
-        factionModelList.add(nomads);
-        FactionModel rangers = new FactionModel("Rangers of the North");
-        factionModelList.add(rangers);
-        FactionModel rhudel = new FactionModel("Rhúdel");
-        factionModelList.add(rhudel);
-        FactionModel rivendell = new FactionModel("Rivendell");
-        factionModelList.add(rivendell);
-        FactionModel rohan = new FactionModel("Rohan");
-        factionModelList.add(rohan);
-        FactionModel southronCoast = new FactionModel("Southron Coast");
-        factionModelList.add(southronCoast);
-        FactionModel taurethrim = new FactionModel("Taurethrim");
-        factionModelList.add(taurethrim);
-        FactionModel umbar = new FactionModel("Umbar");
-        factionModelList.add(umbar);
-        FactionModel woodlandRealm = new FactionModel("Woodland Realm");
-        factionModelList.add(woodlandRealm);
-        FactionModel wanderer = new FactionModel("Wanderer");
-        factionModelList.add(wanderer);
-        return factionModelList;
+        List<FactionModel> factions = apiClient.getFactions();
+        factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
+        return factions;
     }
 
     /**
@@ -190,6 +136,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         return plugin;
     }
 
+    public static Logger getALLogger() {
+        return logger;
+    }
+
     public static String getMsgPrefix() {
         return msgPrefix;
     }
@@ -201,4 +151,5 @@ public final class AL_Base_Plugin extends JavaPlugin {
     public static List<FactionModel> getFactions() {
         return factions;
     }
+
 }

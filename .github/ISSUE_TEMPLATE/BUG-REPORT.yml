@@ -1,0 +1,61 @@
+name: Bug Report
+description: Report a bug
+projects: "Ardas Legends Plugin"
+title: "[Bug Report] "
+labels: ["Bug-Report"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thank you for reporting this bug. Please be aware, that we might not be able to get to fixing it right away, we need to priorities critical bugs."
+  # In which Plugin was the bug found
+  - type: dropdown
+    id: project-selection
+    attributes:
+      label: Project
+      description: For which Project is this request
+      multiple: false
+      options:
+        - AL_Base_Plugin
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: launcher
+    attributes:
+      label: Minecraft Launcher
+      description: Which Minecraft Launcher do you use
+      multiple: true
+      options:
+        - Forge
+        - Technic Laucher
+        - Curse Forge
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behaviour
+      description: What is the behaviour you where expecting to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Behaviour
+      description: What is the behaviour you got?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to recreate
+      description: Which actions did you do and how can we recreate the problem?
+      placeholder: |
+        0. When ... (So we can check the console logs)
+        1. Using the Launcher ...
+        2. With the following mods ...
+        3. And this configuration ...
+        4. I did ...
+        5. And got the error msg ...
+    validations:
+      required: true
