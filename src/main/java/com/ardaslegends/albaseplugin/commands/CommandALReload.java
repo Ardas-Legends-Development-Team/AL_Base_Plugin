@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 
 public class CommandALReload implements CommandExecutor {
 
+    String msgPrefix = AL_Base_Plugin.getMsgPrefix();
     String errorPrefix = AL_Base_Plugin.getErrorPrefix();
 
     /**
@@ -21,15 +22,19 @@ public class CommandALReload implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             AL_Base_Plugin.getPlugin().reload();
+            sender.sendMessage(msgPrefix + "Successfully reloaded all AL configs and the faction list.");
         } else if (args.length == 1) {
             String feature = args[0].toLowerCase();
             switch (feature) {
                 case "base":
                     AL_Base_Plugin.getPlugin().reload(Reloadables.BASE);
+                    sender.sendMessage(msgPrefix + "Successfully reloaded the base config.");
                 case "stockpile":
                     AL_Base_Plugin.getPlugin().reload(Reloadables.STOCKPILE);
+                    sender.sendMessage(msgPrefix + "Successfully reloaded the stockpile config.");
                 case "factions":
                     AL_Base_Plugin.getPlugin().reload(Reloadables.FACTIONS);
+                    sender.sendMessage(msgPrefix + "Successfully reloaded the faction list.");
                 default:
                     sender.sendMessage(errorPrefix + "Nothing to reload with that name.");
             }

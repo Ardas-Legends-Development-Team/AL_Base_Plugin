@@ -1,14 +1,15 @@
 package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
+import com.ardaslegends.albaseplugin.commands.CommandLeaderActivity;
 import com.ardaslegends.albaseplugin.commands.CommandRPChar;
 import com.ardaslegends.albaseplugin.commands.CommandALReload;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
 import com.ardaslegends.albaseplugin.models.FactionModel;
-import com.ardaslegends.albaseplugin.resources.LastSeenJSON;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
+import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionLeaderActivity;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionStockpile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,7 +31,6 @@ public final class AL_Base_Plugin extends JavaPlugin {
     private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
     private static final String             errorPrefix = msgPrefix + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
     private static final List<FactionModel>     factions           = new ArrayList<>();
-    private static       HashMap<UUID, LocalDateTime> lastSeenFacLeaders = new HashMap<>();
 
     /**
      * onEnable is being run whenever the plugin is started.
@@ -56,12 +56,13 @@ public final class AL_Base_Plugin extends JavaPlugin {
         //Loading all Factions
         factions.addAll(setUpFactions());
 
-        //Loading the lastSeen.json
-        lastSeenFacLeaders = LastSeenJSON.load();
-
         //Setting up the reload functionality, which can not be disabled
         getCommand("alreload").setExecutor(new CommandALReload());
         getCommand("alreload").setTabCompleter(new TabCompletionALReload());
+
+        //Setting up the leaderActivity Command, that we don´t need to toggle
+        getCommand("leaderactivity").setExecutor(new CommandLeaderActivity());
+        getCommand("leaderactivity").setTabCompleter(new TabCompletionLeaderActivity());
 
         //Setting up the stockpile feature if enabled
         if (getConfig().contains("feature.stockpile")) {
@@ -84,8 +85,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
-        LastSeenJSON.save(lastSeenFacLeaders);
+
     }
 
     /**
@@ -97,10 +97,6 @@ public final class AL_Base_Plugin extends JavaPlugin {
         List<FactionModel> factions = apiClient.getFactions();
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
         return factions;
-    }
-
-    private void saveLastSeen() {
-
     }
 
     /**
@@ -156,7 +152,4 @@ public final class AL_Base_Plugin extends JavaPlugin {
         return factions;
     }
 
-    public static HashMap<UUID, LocalDateTime> getLastSeenFacLeaders() {
-        return lastSeenFacLeaders;
-    }
 }

@@ -18,7 +18,8 @@ public class CommandRPChar implements CommandExecutor {
     /**
      * onCommand is being run if the command rpchar was executed
      * the syntax of the cmd is
-     * - /rpchar [ign] [character] [pvp] [leader] [staff] {title}
+     * - /rpchar [ign] [staff] {title}
+     * fetch [character] [pvp] [leader]
      *
      * @param sender Source of the command
      * @param command Command which was executed

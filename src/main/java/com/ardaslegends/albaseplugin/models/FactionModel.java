@@ -19,6 +19,23 @@ public class FactionModel {
 
     }
 
+    @Override
+    public boolean equals(Object object) {
+
+        if (object != null) {
+            if (object.getClass() == this.getClass()) {
+                FactionModel otherFactionModel = (FactionModel) object;
+                return otherFactionModel.nameOfFaction.equals(this.nameOfFaction);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return nameOfFaction.hashCode();
+    }
+
     public void setNameOfFaction(String nameOfFaction) {
         this.nameOfFaction = nameOfFaction;
     }
