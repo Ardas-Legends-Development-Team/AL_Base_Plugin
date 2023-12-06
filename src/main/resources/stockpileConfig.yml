@@ -1,0 +1,57 @@
+---
+# This configuration file is used to configure the aspects of the stockpile feature.
+# You can define the accepted items and their values, as well as restrictions on specific items
+# The default values are based on the Ardas Legends System and will be adjusted alongside the system.
+
+################
+# Allowed Food #
+################
+
+# Defining the accepted Items and their respective value .
+# Default value is 1/64 so a full stack provides a point.
+BREAD: 0.015625
+GRILLED_PORK: 0.015625
+COOKED_BEEF: 0.015625
+COOKED_CHICKEN: 0.015625
+COOKED_FISH: 0.015625
+COOKIES: 0.015625
+LOTR_ITEMLEMBAS: 0.015625
+LOTR_ITEMRABBITCOOKED: 0.015625
+LOTR_ITEMGAMMON: 0.015625
+LOTR_ITEMHOBBITPANCAKE: 0.015625
+LOTR_ITEMRHINOCOOKED: 0.015625
+LOTR_ITEMBANANABREAD: 0.015625
+LOTR_ITEMHOBBITPANCAKEMAPLESIRUP: 0.015625
+LOTR_ITEMCRAM: 0.015625
+LOTR_ITEMMUTTONCOOKED: 0.015625
+LOTR_ITEMMANFLESH: 0.015625
+LOTR_ITEMCORNBREAD: 0.015625
+LOTR_ITEMYAMROAST: 0.015625
+LOTR_ITEMTURNIPCOOKED: 0.015625
+LOTR_ITEMCAMELCOOKED: 0.015625
+LOTR_ITEMSHISHKEBAB: 0.015625
+LOTR_ITEMCORNCOOKED: 0.015625
+LOTR_ITEMKEBAB: 0.015625
+LOTR_ITEMDEERCOOKED: 0.015625
+LOTR_ITEMZEBRACOOKED: 0.015625
+LOTR_ITEMLIONCOOKED: 0.015625
+
+################
+# Restrictions #
+################
+
+# Defining the food usage restrictions
+can-use-manflesh:
+  - Angmar
+  - Dol Guldur
+  - Dunland
+  - Gulf of Harad
+  - Half-Trolls
+  - Harnennor
+  - Isengard
+  - Mordor
+  - Morwaith
+  - Nomads
+  - Rhudel
+  - Southron Coast
+  - Umbar
