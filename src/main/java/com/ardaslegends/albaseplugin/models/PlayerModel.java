@@ -10,8 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class PlayerModel {
     private String ign;
     private String faction;
+    private boolean isStaff;
+    private RPCharModel character;
 
-    public PlayerModel(String ign, String faction) {
+    public PlayerModel(String ign, String faction, RPCharModel rpChar) {
         this.ign = ign;
         this.faction = faction;
     }
@@ -22,5 +24,13 @@ public class PlayerModel {
 
     public String getFaction() {
         return faction;
+    }
+
+    public boolean getIsStaff() {
+        return isStaff;
+    }
+
+    public RPCharModel getCharacter() {
+        return character;
     }
 }

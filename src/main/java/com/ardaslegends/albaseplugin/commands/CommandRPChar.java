@@ -1,11 +1,16 @@
 package com.ardaslegends.albaseplugin.commands;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
+import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
+import com.ardaslegends.albaseplugin.models.FactionModel;
+import com.ardaslegends.albaseplugin.models.PlayerModel;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 /**
  * All Methods and variables related to the Command RPChar are within this class
@@ -14,12 +19,12 @@ public class CommandRPChar implements CommandExecutor {
 
     String msgPrefix = AL_Base_Plugin.getMsgPrefix();
     String errorPrefix = AL_Base_Plugin.getErrorPrefix();
+    ALApiClient apiClient = new ALApiClient();
 
     /**
      * onCommand is being run if the command rpchar was executed
      * the syntax of the cmd is
      * - /rpchar [ign] [staff] {title}
-     * fetch [character] [pvp] [leader]
      *
      * @param sender Source of the command
      * @param command Command which was executed
@@ -31,11 +36,12 @@ public class CommandRPChar implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //If the argument count is too low
         // (We need at least 5 arguments and can have many more as each word of the title is one argument)
-        if (args.length < 5) {
-            sender.sendMessage(errorPrefix + "You have given to few arguments.");
+        if (args.length < 2) {
+            sender.sendMessage(msgPrefix + errorPrefix + "You have given to few arguments.");
             return false;
         }
 
+        String ign = args[0];
         Player target = Bukkit.getPlayer(args[0]);
 
         //If the target is not found inform the sender and end the command
@@ -44,16 +50,23 @@ public class CommandRPChar implements CommandExecutor {
             return true;
         }
 
+        //Fetching the Players Data from the backend
+        PlayerModel playerModel = apiClient.getPlayerByIGN(ign);
+
         //Setting up the required arguments for the command
-        String charname = args[1].replace('_', ' ');
-        boolean pvp = args[2].equalsIgnoreCase("pvp");
-        boolean leader = args[3].equalsIgnoreCase("yes");
-        String staffRole = args[4];
+        String charname = playerModel.getCharacter().getName();
+        boolean pvp = playerModel.getCharacter().getPvP();
+
+        List<FactionModel> factionModels = apiClient.getFactions();
+        FactionModel factionModel = factionModels.get(factionModels.indexOf(new FactionModel(playerModel.getFaction())));
+        boolean leader = factionModel.getLeader().equalsIgnoreCase(ign);
+
+        String staffRole = playerModel.getIsStaff() ? args[1] : "none";
 
         //Setting up the title for the player
         StringBuilder titleSb = new StringBuilder();
-        if (args.length > 5) {
-            for (int i = 5; i < args.length; i++) {
+        if (args.length > 2) {
+            for (int i = 2; i < args.length; i++) {
                 titleSb.append(args[i])
                        .append(" ");
             }
