@@ -1,8 +1,7 @@
----
 # This configuration file is used to configure the aspects of the stockpile feature.
 # You can define the accepted items and their values, as well as restrictions on specific items
 # The default values are based on the Ardas Legends System and will be adjusted alongside the system.
-
+---
 ################
 # Allowed Food #
 ################

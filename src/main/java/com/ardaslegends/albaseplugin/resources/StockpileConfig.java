@@ -1,11 +1,14 @@
 package com.ardaslegends.albaseplugin.resources;
 
+import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,7 +20,8 @@ import java.util.logging.Level;
 public class StockpileConfig {
 
     private static File stockpile;
-    private static FileConfiguration stockpileConfig;
+    private static       FileConfiguration stockpileConfig;
+    private static final AL_Base_Plugin    al_base_plugin = AL_Base_Plugin.getPlugin();
 
     /**
      * The method is setting up the FoodConfiguration.
@@ -79,40 +83,8 @@ public class StockpileConfig {
      */
     public static void addDefaults(){
         StockpileConfig.setup();
-        //Setting up the values for each food item
-        {
-            StockpileConfig.getStockpileConfig().addDefault("BREAD", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("GRILLED_PORK", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("COOKED_BEEF", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("COOKED_CHICKEN", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("COOKED_FISH", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("COOKIES", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMLEMBAS", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMRABBITCOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMGAMMON", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMHOBBITPANCAKE", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMRHINOCOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMBANANABREAD", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMHOBBITPANCAKEMAPLESIRUP", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMCRAM", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMMUTTONCOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMMANFLESH", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMCORNBREAD", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMYAMROAST", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMTURNIPCOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMCAMELCOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMSHISHKEBAB", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMCORNCOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMKEBAB", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMDEERCOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMZEBRACOOKED", 0.015625);
-            StockpileConfig.getStockpileConfig().addDefault("LOTR_ITEMLIONCOOKED", 0.015625);
-        }
-
-        //Setting up restrictions
-        {
-            StockpileConfig.getStockpileConfig().addDefault("can-use-manflesh", getCanUseManflesh());
-        }
+        InputStream inputStream = al_base_plugin.getResource("stockpileConfig.yml");
+        stockpileConfig =  YamlConfiguration.loadConfiguration(new InputStreamReader(inputStream));
         StockpileConfig.getStockpileConfig().options().copyDefaults(true);
         StockpileConfig.save();
     }
