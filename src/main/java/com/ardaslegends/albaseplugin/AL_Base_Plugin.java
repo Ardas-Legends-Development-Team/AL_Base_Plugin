@@ -8,6 +8,7 @@ import com.ardaslegends.albaseplugin.models.FactionModel;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
+import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionRPChar;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionStockpile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -69,6 +70,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
         if (getConfig().contains("feature.rpchar")) {
             //Registering the rpchar command
             getCommand("rpchar").setExecutor(new CommandRPChar());
+            getCommand("rpchar").setTabCompleter(new TabCompletionRPChar());
         }
     }
 
