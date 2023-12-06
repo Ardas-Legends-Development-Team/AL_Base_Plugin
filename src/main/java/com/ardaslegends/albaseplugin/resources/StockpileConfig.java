@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -87,27 +85,5 @@ public class StockpileConfig {
         stockpileConfig =  YamlConfiguration.loadConfiguration(new InputStreamReader(inputStream));
         StockpileConfig.getStockpileConfig().options().copyDefaults(true);
         StockpileConfig.save();
-    }
-
-    /**
-     * Defines a List of factions able to use Manflesh
-     * @return a list of factions able to use Manflesh
-     */
-    private static List<String> getCanUseManflesh() {
-        List<String> canUseManflesh = new ArrayList<>();
-        canUseManflesh.add("Angmar");
-        canUseManflesh.add("Dol Guldur");
-        canUseManflesh.add("Dunland");
-        canUseManflesh.add("Gulf of Harad");
-        canUseManflesh.add("Half-Trolls");
-        canUseManflesh.add("Harnennor");
-        canUseManflesh.add("Isengard");
-        canUseManflesh.add("Mordor");
-        canUseManflesh.add("Morwaith");
-        canUseManflesh.add("Nomads");
-        canUseManflesh.add("Rhudel");
-        canUseManflesh.add("Southron Coast");
-        canUseManflesh.add("Umbar");
-        return canUseManflesh;
     }
 }
