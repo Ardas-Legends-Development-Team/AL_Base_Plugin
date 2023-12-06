@@ -46,7 +46,7 @@ public class CommandStockpile implements CommandExecutor {
                     player.getInventory().getItem(heldItemSlot);
             if (args.length > 2) {
                 //If the command has to many arguments
-                player.sendMessage(msgPrefix + errorPrefix + "To many arguments.");
+                player.sendMessage(errorPrefix + "To many arguments.");
                 return false;
             } else if (args.length == 2) {
                 //If the command has 2 arguments, it could be the staff version of /stockpile stored
@@ -60,25 +60,23 @@ public class CommandStockpile implements CommandExecutor {
                                                + " has a stockpile of "
                                                + factionStockpileModel.getAmount());
                         } else {
-                            player.sendMessage(msgPrefix
-                                               + errorPrefix
+                            player.sendMessage(errorPrefix
                                                + "The faction "
                                                + args[1]
                                                + " might not exist");
                         }
                     } else {
-                        player.sendMessage(msgPrefix
-                                           + errorPrefix
+                        player.sendMessage(errorPrefix
                                            + "You don´t have permission to run this command.");
                     }
                 } else {
-                    player.sendMessage(msgPrefix + errorPrefix + "Wrong arguments.");
+                    player.sendMessage(errorPrefix + "Wrong arguments.");
                     return false;
                 }
             } else if (args.length == 1) {
                 switch(args[0]) {
                     case "info":
-                        StringBuilder sbInfo = new StringBuilder(msgPrefix);
+                        StringBuilder sbInfo = new StringBuilder("");
                         createInfoMsg(heldItem, playerModel, sbInfo);
                         player.sendMessage(sbInfo.toString());
                         break;
@@ -100,7 +98,7 @@ public class CommandStockpile implements CommandExecutor {
                                            " stored in the Stockpile");
                         break;
                     default:
-                        player.sendMessage(msgPrefix + errorPrefix + args[0] + " is no proper argument.");
+                        player.sendMessage(errorPrefix + args[0] + " is no proper argument.");
                         return false;
                 }
             } else {
@@ -145,8 +143,7 @@ public class CommandStockpile implements CommandExecutor {
                     player.getInventory().remove(heldItem);
                     break;
                 default:
-                    player.sendMessage(msgPrefix
-                                       + errorPrefix
+                    player.sendMessage(errorPrefix
                                        + "Something went wrong connecting to the backend. "
                                        + "Please contact Staff. "
                                        + "Status Code: "

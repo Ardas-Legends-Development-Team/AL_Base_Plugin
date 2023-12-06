@@ -1,6 +1,7 @@
 package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
+import com.ardaslegends.albaseplugin.commands.CommandLeaderActivity;
 import com.ardaslegends.albaseplugin.commands.CommandRPChar;
 import com.ardaslegends.albaseplugin.commands.CommandALReload;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
@@ -8,13 +9,15 @@ import com.ardaslegends.albaseplugin.models.FactionModel;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
+import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionRPChar;
+import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionLeaderActivity;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionStockpile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,11 +27,11 @@ import java.util.logging.Logger;
 public final class AL_Base_Plugin extends JavaPlugin {
 
     private static       AL_Base_Plugin     plugin;
-    private ALApiClient apiClient;
-    private final        Logger             logger      = Bukkit.getServer().getLogger();
+    private static       ALApiClient apiClient;
+    private static final Logger             logger      = Bukkit.getServer().getLogger();
     private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
-    private static final String             errorPrefix = ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
-    private static final List<FactionModel> factions    = new ArrayList<>();
+    private static final String             errorPrefix = msgPrefix + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
+    private static final List<FactionModel>     factions           = new ArrayList<>();
 
     /**
      * onEnable is being run whenever the plugin is started.
@@ -58,6 +61,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         getCommand("alreload").setExecutor(new CommandALReload());
         getCommand("alreload").setTabCompleter(new TabCompletionALReload());
 
+        //Setting up the leaderActivity Command, that we don´t need to toggle
+        getCommand("leaderactivity").setExecutor(new CommandLeaderActivity());
+        getCommand("leaderactivity").setTabCompleter(new TabCompletionLeaderActivity());
+
         //Setting up the stockpile feature if enabled
         if (getConfig().contains("feature.stockpile")) {
             //Registering the stockpile command
@@ -69,6 +76,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
         if (getConfig().contains("feature.rpchar")) {
             //Registering the rpchar command
             getCommand("rpchar").setExecutor(new CommandRPChar());
+            getCommand("rpchar").setTabCompleter(new TabCompletionRPChar());
         }
     }
 
@@ -79,7 +87,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
     }
 
     /**
@@ -130,6 +138,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         return plugin;
     }
 
+    public static Logger getALLogger() {
+        return logger;
+    }
+
     public static String getMsgPrefix() {
         return msgPrefix;
     }
@@ -141,4 +153,5 @@ public final class AL_Base_Plugin extends JavaPlugin {
     public static List<FactionModel> getFactions() {
         return factions;
     }
+
 }
