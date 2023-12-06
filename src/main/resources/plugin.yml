@@ -20,6 +20,10 @@ commands:
     description: The command to reload a specific reloadable or all reloadable features
     permission: al.staff.reload
     usage: /<command> {reloadable feature}
+  leaderActivity:
+    description: A command to check the activity of factionLeaders
+    permission: al.staff.leaderactivity
+    usage: /<command> {factionName}
 
 permissions:
   al.*:
@@ -53,6 +57,7 @@ permissions:
       al.staff.rpchar: true
       al.staff.stockpileStoredFaction: true
       al.staff.reload: true
+      al.staff.leaderactivity: true
   al.staff.rpchar:
     description: Permission to run the /rpchar command
     default: op
@@ -61,4 +66,7 @@ permissions:
     default: op
   al.staff.reload:
     description: Permission to run the /reload command
+    default: op
+  al.staff.leaderactivity:
+    description: Permission to run /leaderActivity
     default: op

@@ -7,5 +7,9 @@ ___
 + added a TabCompletion for the /stockpile command
 + added the /rpchar command with the syntax `/rpchar [ign] [staff] {title}`, the rest of the needed information is fetched from the backend
 + added the /reload command with the syntax `/alreload {base|stockpile|factions}`
++ added a TabCompletion for the /reload command
 + added a TabCompletion for the /rpchar command
++ the plugin is now loading the faction list dynamically from the backend upon startup
++ added the staff command /leaderactivity with the syntax `/leaderactivity {faction}`
++ added a TabCompletion for the /leaderactivity command
 ___
