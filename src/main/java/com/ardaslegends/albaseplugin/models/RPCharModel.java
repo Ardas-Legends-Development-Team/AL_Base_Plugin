@@ -1,5 +1,8 @@
 package com.ardaslegends.albaseplugin.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class RPCharModel {
     private String name;
     private boolean pvp;

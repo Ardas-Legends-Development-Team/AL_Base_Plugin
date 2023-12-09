@@ -53,6 +53,16 @@ public class CommandRPChar implements CommandExecutor {
         //Fetching the Players Data from the backend
         PlayerModel playerModel = apiClient.getPlayerByIGN(ign);
 
+        if (playerModel == null) {
+            sender.sendMessage(errorPrefix + "The player " + ign + " is not registered in the backend.");
+            return true;
+        }
+
+        if (playerModel.getCharacter() == null) {
+            sender.sendMessage(errorPrefix + " The Player " + ign + " has no approved Roleplay Character.");
+            return true;
+        }
+
         //Setting up the required arguments for the command
         String charname = playerModel.getCharacter().getName();
         boolean pvp = playerModel.getCharacter().getPvP();
