@@ -64,10 +64,8 @@ public class ALApiClient {
                 HttpEntity entity = response.getEntity();
                 try {
                     String entityString = EntityUtils.toString(entity);
-                    logger.log(Level.INFO, "EntityString: " + entityString);
                     playerModel = mapper.readValue(entityString,
-                                                   PlayerModel.class);
-                    logger.log(Level.INFO, playerModel.getRpChar());
+                            PlayerModel.class);
                 } catch (IOException e) {
                     logger.log(Level.WARNING, e.getMessage());
                 }

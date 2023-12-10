@@ -58,14 +58,14 @@ public class CommandRPChar implements CommandExecutor {
             return true;
         }
 
-        if (playerModel.getCharacter() == null) {
+        if (playerModel.getRpChar() == null) {
             sender.sendMessage(errorPrefix + " The Player " + ign + " has no approved Roleplay Character.");
             return true;
         }
 
         //Setting up the required arguments for the command
-        String charname = playerModel.getCharacter().getName();
-        boolean pvp = playerModel.getCharacter().getPvP();
+        String charname = playerModel.getRpChar().getName();
+        boolean pvp = playerModel.getRpChar().getPvP();
 
         List<FactionModel> factionModels = apiClient.getFactions();
         FactionModel factionModel = factionModels.get(factionModels.indexOf(new FactionModel(playerModel.getFaction())));
