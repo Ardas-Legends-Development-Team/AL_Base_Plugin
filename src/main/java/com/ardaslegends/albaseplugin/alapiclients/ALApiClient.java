@@ -63,8 +63,9 @@ public class ALApiClient {
             if(response.getStatusLine().getStatusCode() == 200){
                 HttpEntity entity = response.getEntity();
                 try {
-                    playerModel = mapper.readValue(EntityUtils.toString(entity),
-                                                   PlayerModel.class);
+                    String entityString = EntityUtils.toString(entity);
+                    playerModel = mapper.readValue(entityString,
+                            PlayerModel.class);
                 } catch (IOException e) {
                     logger.log(Level.WARNING, e.getMessage());
                 }

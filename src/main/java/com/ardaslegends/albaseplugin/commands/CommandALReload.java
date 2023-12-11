@@ -29,14 +29,18 @@ public class CommandALReload implements CommandExecutor {
                 case "base":
                     AL_Base_Plugin.getPlugin().reload(Reloadables.BASE);
                     sender.sendMessage(msgPrefix + "Successfully reloaded the base config.");
+                    break;
                 case "stockpile":
                     AL_Base_Plugin.getPlugin().reload(Reloadables.STOCKPILE);
                     sender.sendMessage(msgPrefix + "Successfully reloaded the stockpile config.");
+                    break;
                 case "factions":
                     AL_Base_Plugin.getPlugin().reload(Reloadables.FACTIONS);
                     sender.sendMessage(msgPrefix + "Successfully reloaded the faction list.");
+                    break;
                 default:
                     sender.sendMessage(errorPrefix + "Nothing to reload with that name.");
+                    break;
             }
         } else {
             sender.sendMessage(errorPrefix + "Wrong argument count.");
