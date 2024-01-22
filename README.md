@@ -19,6 +19,9 @@ From the develop branch feature, task and release branches are created for the r
 ## Changelog
 You can find an up-to-date changelog [here](CHANGELOG.md).
 
+## Roadmap
+You can find an up-to-date version of a Roadmap [here](ROADMAP.md).
+
 ## How to run this plugin
 In order to run this plugin, you need to have an instance of the Ardas Legends App running, that this plugin can communicate with.
 You just need to place the plugin into the plugin folder of your Minecraft Server.
