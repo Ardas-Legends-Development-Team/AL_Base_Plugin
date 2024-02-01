@@ -28,4 +28,4 @@ You just need to place the plugin into the plugin folder of your Minecraft Serve
 In order for the plugin to communicate with you version of the Ardas Legends App, edit the config.yml after starting the server the with the plugin the first time.
 
 ## How to contribute
-If you wish to contribute, please contact Anedhel on the Ardas Legends Discord. This section is yet to be set up.
+If you wish to contribute, check [here](CONTRIBUTING.md) first.
