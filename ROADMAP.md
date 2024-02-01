@@ -27,3 +27,4 @@
 - Buildmode
 - Player world edit commands
 - Plugin Menu
+- Custom Recipes
