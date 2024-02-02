@@ -11,11 +11,6 @@ For more information on the system visit the [AL Discord](https://discord.gg/Uuw
 If you wish to contact the maintainers of this project, 
 please join the [AL Discord](https://discord.gg/UuwHfkA2Df) and contact one of the people listed as Autors.
 
-## Branch structure
-This project uses a master branch, that contains the state of the project currently run on the Ardas Legends Minecraft Server,
-a develop branch, that is the base branch for development and is merged into master upon a release.
-From the develop branch feature, task and release branches are created for the respective issues, that are being worked on.
-
 ## Changelog
 You can find an up-to-date changelog [here](CHANGELOG.md).
 
