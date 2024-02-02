@@ -18,6 +18,12 @@ You also can expect anything listed here from others.
 <!-- Properly add Text here -->
 
 ## Style Guide and Coding Guidelines
+
+### Branch structure
+This project uses a master branch, that contains the state of the project currently run on the Ardas Legends Minecraft Server,
+a develop branch, that is the base branch for development and is merged into master upon a release.
+From the develop branch feature, task and release branches are created for the respective issues, that are being worked on.
+
 <!-- Properly add Text here -->
 
 ## Setting up your IDE and a test server
