@@ -28,3 +28,5 @@
 - Player world edit commands
 - Plugin Menu
 - Custom Recipes
+- Player toggledownfall using a voting system
+- Interval trivia events
