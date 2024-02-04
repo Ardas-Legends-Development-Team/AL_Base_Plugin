@@ -1,5 +1,6 @@
 # Ardas Legends Planned Features
-
+## Disclaimer
+This Roadmap is not final and subject to change. There are no dates given for the Updates, because this Project is developed when people have free time, which can not be planned.
 ## Roadmap
 ### v1.1 Resources Update
 - Monthly Resources
