@@ -15,7 +15,16 @@ please join the [AL Discord](https://discord.gg/UuwHfkA2Df) and contact one of t
 You can find an up-to-date changelog [here](CHANGELOG.md).
 
 ## Roadmap
-You can find an up-to-date version of a Roadmap [here](ROADMAP.md).
+The following Roadmap is not guaranteed and can change any time.
+
+1. Resources Update
+2. PvP Update
+3. Factions Update
+4. Event Update
+5. Backend Sync and Staff QoL Update
+6. Build Protection Update
+
+You can always find an up-to-date and more detailed version of the Roadmap [here](ROADMAP.md).
 
 ## How to run this plugin
 In order to run this plugin, you need to have an instance of the Ardas Legends App running, that this plugin can communicate with.
