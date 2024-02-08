@@ -34,6 +34,38 @@ public class TabCompletionStockpile implements TabCompleter {
             List<String> options = new ArrayList<>();
             AL_Base_Plugin.getFactions().forEach(faction -> options.add(faction.getName().replace(' ', '_')));
             return options;
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("info")) {
+            List<String> options = new ArrayList<>();
+            options.add("Angmar");
+            options.add("Bree");
+            options.add("Dale");
+            options.add("Dol_Amroth");
+            options.add("Dol_Guldur");
+            options.add("Dorwinion");
+            options.add("Dunland");            
+            options.add("Durins_Folk");
+            options.add("Ered_Luin_Dwarves");
+            options.add("Gondor");
+            options.add("Gulf of Harad");
+            options.add("Gundabad");
+            options.add("Half-Trolls");
+            options.add("Harnennor");
+            options.add("Hobbits");
+            options.add("Isengard");
+            options.add("Lindon");
+            options.add("Lothlórien");
+            options.add("Mordor");
+            options.add("Morwaith");
+            options.add("Nomads");
+            options.add("Rangers");
+            options.add("Rhúdel");
+            options.add("Rivendell");
+            options.add("Rohan");
+            options.add("Southron Coast");
+            options.add("Taurethrim");
+            options.add("Umbar");
+            options.add("Woodland Realm");
+            return options;
         }
 
         return null;
