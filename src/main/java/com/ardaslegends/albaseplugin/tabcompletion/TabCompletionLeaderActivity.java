@@ -20,6 +20,9 @@ public class TabCompletionLeaderActivity implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 
+        if (!AL_Base_Plugin.getBackendOnline()) {
+            return null;
+        }
         if (args.length == 1) {
             List<String> options = new ArrayList<>();
             AL_Base_Plugin.getFactions().forEach(faction -> options.add(faction.getName().replace(' ', '_')));
