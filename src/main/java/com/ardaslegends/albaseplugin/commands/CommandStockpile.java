@@ -37,6 +37,9 @@ public class CommandStockpile implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!AL_Base_Plugin.getBackendOnline) {
+            sender.sendMessage(errorPrefix + "The Backend is offline, this command needs the backend to be online. Please contact the devs.");
+        }
         //Checks if the sender of the command is actually a player
         if (sender instanceof Player) {
             Player player = (Player) sender;
