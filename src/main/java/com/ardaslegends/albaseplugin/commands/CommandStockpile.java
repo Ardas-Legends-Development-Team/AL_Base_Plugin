@@ -37,14 +37,9 @@ public class CommandStockpile implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!AL_Base_Plugin.getBackendOnline) {
-            sender.sendMessage(errorPrefix + "The Backend is offline, this command needs the backend to be online. Please contact the devs.");
-            return true;
-        }
         //Checks if the sender of the command is actually a player
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            PlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
             int heldItemSlot = player.getInventory().getHeldItemSlot();
             ItemStack heldItem =
                     player.getInventory().getItem(heldItemSlot);
@@ -55,6 +50,10 @@ public class CommandStockpile implements CommandExecutor {
             } else if (args.length == 2) {
                 //If the command has 2 arguments, it could be the staff version of /stockpile stored
                 if (args[0].equalsIgnoreCase("stored")) {
+					if (!AL_Base_Plugin.getBackendOnline) {
+						sender.sendMessage(errorPrefix + "The Backend is offline, this command needs the backend to be online. Please contact the devs.");
+						return true;
+					}
                     if (player.hasPermission("al.staff.stockpileStoredFaction")) {
                         FactionStockpileModel factionStockpileModel = apiClient.getFactionStockpile(args[1].replaceAll("_", "%20"));
                         if (factionStockpileModel.getFactionName() != null) {
@@ -73,15 +72,24 @@ public class CommandStockpile implements CommandExecutor {
                         player.sendMessage(errorPrefix
                                            + "You don´t have permission to run this command.");
                     }
-                } else {
+                } else if (args[0].equalsIgnoreCase("info")) {
+					StringBuilder sbInfo = new StringBuilder("");
+					createInfoMsg(heldItem, args[1], sbInfo);
+					player.sendMessage(sbInfo.toString());
+				} else {
                     player.sendMessage(errorPrefix + "Wrong arguments.");
                     return false;
                 }
             } else if (args.length == 1) {
+				if (!AL_Base_Plugin.getBackendOnline) {
+					sender.sendMessage(errorPrefix + "The Backend is offline, this command needs the backend to be online. Please contact the devs.");
+					return true;
+				}
+				PlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
                 switch(args[0]) {
                     case "info":
                         StringBuilder sbInfo = new StringBuilder("");
-                        createInfoMsg(heldItem, playerModel, sbInfo);
+                        createInfoMsg(heldItem, playerModel.getFaction(), sbInfo);
                         player.sendMessage(sbInfo.toString());
                         break;
                     case "stored":
@@ -106,6 +114,10 @@ public class CommandStockpile implements CommandExecutor {
                         return false;
                 }
             } else {
+				if (!AL_Base_Plugin.getBackendOnline) {
+					sender.sendMessage(errorPrefix + "The Backend is offline, this command needs the backend to be online. Please contact the devs.");
+					return true;
+				}
                 //If no argument was given, we assume /stockpile add
                 subcmdAdd(player, playerModel, heldItem);
                 player.sendMessage(msgPrefix +
@@ -161,11 +173,11 @@ public class CommandStockpile implements CommandExecutor {
      * Creates an Info Message using the given StringBuilder and returns the value,
      * that the item would have for the stockpile as double
      * @param item the item to be checked
-     * @param playerModel the player the item is being checked for
+     * @param factionName the faction the item is being checked for
      * @param infoMsgSb the StringBuilder, that will contain the Information Msg after this method
      * @return the value of the given item on the stockpile
      */
-    private double createInfoMsg(ItemStack item, PlayerModel playerModel, StringBuilder infoMsgSb){
+    private double createInfoMsg(ItemStack item, String factionName, StringBuilder infoMsgSb){
         double value = getStockpileValue(item, playerModel);
         int error = (int) value;
         switch (error) {
@@ -186,7 +198,7 @@ public class CommandStockpile implements CommandExecutor {
             case -101: //Error-Code -101: Manflesh not usable for players faction
                 infoMsgSb.append(errorPrefix)
                          .append("Your faction ")
-                         .append(playerModel.getFaction())
+                         .append(factionName)
                          .append(" can not use manflesh for the stockpile");
                 break;
             default:
@@ -219,9 +231,10 @@ public class CommandStockpile implements CommandExecutor {
      * -101: manflesh is not allowed for the players faction
      *
      * @param item The item, of which the stockpile value is to be calculated
+	 * @param factionName The faction, the item would be stored
      * @return the value for the stockpile, or an error code
      */
-    private double getStockpileValue(ItemStack item, PlayerModel playerModel){
+    private double getStockpileValue(ItemStack item, String factionName){
         if (item == null) {
             //If the player has an empty hand
             return -10;
@@ -241,7 +254,7 @@ public class CommandStockpile implements CommandExecutor {
             if (name.equalsIgnoreCase("LOTR_ITEMMANFLESH")) {
                 //If the item is manflesh
                 List<String> canUseManflesh = stockpileConfig.getStringList("can-use-manflesh");
-                if (!canUseManflesh.contains(playerModel.getFaction())) {
+                if (!canUseManflesh.contains(factionName)) {
                     //If the players faction can not use manflesh
                     return -101;
                 }
