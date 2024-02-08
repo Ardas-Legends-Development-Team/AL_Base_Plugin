@@ -36,10 +36,10 @@ public class CommandRPChar implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //If the argument count is too low
         // (We need at least 5 arguments and can have many more as each word of the title is one argument)
-        if (args.length < 2) {
-            sender.sendMessage(msgPrefix + errorPrefix + "You have given to few arguments.");
-            return false;
-        }
+        if (args.length < 5 && !AL_Base_Plugin.getBackendOnline() || args.length < 2) {
+    		sender.sendMessage(msgPrefix + errorPrefix + "You have given to few arguments.");
+    		return false;
+    	}
 
         String ign = args[0];
         Player target = Bukkit.getPlayer(args[0]);
@@ -49,30 +49,44 @@ public class CommandRPChar implements CommandExecutor {
             sender.sendMessage(msgPrefix + "Could not find the Player " + args[0] + ".");
             return true;
         }
-
-        //Fetching the Players Data from the backend
-        PlayerModel playerModel = apiClient.getPlayerByIGN(ign);
-
-        if (playerModel == null) {
-            sender.sendMessage(errorPrefix + "The player " + ign + " is not registered in the backend.");
-            return true;
-        }
-
-        if (playerModel.getRpChar() == null) {
-            sender.sendMessage(errorPrefix + " The Player " + ign + " has no approved Roleplay Character.");
-            return true;
-        }
-
-        //Setting up the required arguments for the command
-        String charname = playerModel.getRpChar().getName();
-        boolean pvp = playerModel.getRpChar().getPvP();
-
-        List<FactionModel> factionModels = apiClient.getFactions();
-        FactionModel factionModel = factionModels.get(factionModels.indexOf(new FactionModel(playerModel.getFaction())));
-        boolean leader = factionModel.getLeader().equalsIgnoreCase(ign);
-
-        String staffRole = playerModel.getIsStaff() ? args[1] : "none";
-
+        //Needed information
+    	String charname;
+    	boolean pvp;
+    	boolean leader;
+    	String staffRole;
+    	
+    	if (AL_Base_Plugin.getBackendOnline()) {
+    		//Backend is online -> Syntax = /rpchar [ign] [staff] {title}
+    		
+    		//Fetching the Players Data from the backend
+    		PlayerModel playerModel = apiClient.getPlayerByIGN(ign);
+    
+    		if (playerModel == null) {
+    			sender.sendMessage(errorPrefix + "The player " + ign + " is not registered in the backend.");
+    			return true;
+    		}
+    
+    		if (playerModel.getRpChar() == null) {
+    			sender.sendMessage(errorPrefix + " The Player " + ign + " has no approved Roleplay Character.");
+    			return true;
+    		}
+    
+    		//Setting up the required arguments for the command
+    		charname = playerModel.getRpChar().getName();
+    		pvp = playerModel.getRpChar().getPvP();
+    
+    		List<FactionModel> factionModels = apiClient.getFactions();
+    		FactionModel factionModel = factionModels.get(factionModels.indexOf(new FactionModel(playerModel.getFaction())));
+    		leader = factionModel.getLeader().equalsIgnoreCase(ign);
+    
+    		staffRole = playerModel.getIsStaff() ? args[1] : "none";
+    	} else {
+    		//Backend is offline -> Syntax = /rpchar [ign] [charname] [PvP] [Leader] [StaffRole] {Title}
+    		charname = args[1];
+    		pvp = args[2].equalsIgnoreCase("PvP");
+    		leader = args[3].equalsIgnoreCase("Yes");
+    		staffRole = args[4];
+    	}
         //Setting up the title for the player
         StringBuilder titleSb = new StringBuilder();
         if (args.length > 2) {
