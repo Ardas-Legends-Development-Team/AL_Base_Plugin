@@ -1,5 +1,6 @@
 package com.ardaslegends.albaseplugin.tabcompletion;
 
+import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
