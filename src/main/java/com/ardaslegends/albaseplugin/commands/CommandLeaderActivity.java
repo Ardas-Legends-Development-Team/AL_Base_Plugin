@@ -28,6 +28,10 @@ public class CommandLeaderActivity implements CommandExecutor {
      */
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+        if (!AL_Base_Plugin.getBackendOnline) {
+            sender.sendMessage(errofPrefix + "The Backend is offline, the command requires the Backend to be online. Please contact the devs.");
+            return true;
+        }
         if(args.length == 0) {
             factions.forEach(factionModel -> {
                 String leader = factionModel.getLeader();
