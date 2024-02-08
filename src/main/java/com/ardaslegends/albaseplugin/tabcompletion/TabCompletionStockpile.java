@@ -39,12 +39,12 @@ public class TabCompletionStockpile implements TabCompleter {
             options.add("Angmar");
             options.add("Bree");
             options.add("Dale");
-            options.add("Dol_Amroth");
-            options.add("Dol_Guldur");
+            options.add("Dol Amroth");
+            options.add("Dol Guldur");
             options.add("Dorwinion");
             options.add("Dunland");            
-            options.add("Durins_Folk");
-            options.add("Ered_Luin_Dwarves");
+            options.add("Durins Folk");
+            options.add("Ered Luin Dwarves");
             options.add("Gondor");
             options.add("Gulf of Harad");
             options.add("Gundabad");
