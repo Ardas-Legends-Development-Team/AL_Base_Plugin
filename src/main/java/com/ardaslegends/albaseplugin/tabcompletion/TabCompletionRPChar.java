@@ -19,16 +19,38 @@ public class TabCompletionRPChar implements TabCompleter {
      */
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 
-        if(args.length == 2) {
-            List<String> options = new ArrayList<>();
-            options.add("None");
-            options.add("Mod");
-            options.add("Admin");
-            options.add("Dev");
-            options.add("Owner");
-            return options;
+        if (AL_Base_Plugin.getBackendOnline()) {
+            if(args.length == 2) {
+                List<String> options = new ArrayList<>();
+                options.add("None");
+                options.add("Mod");
+                options.add("Admin");
+                options.add("Dev");
+                options.add("Owner");
+                return options;
+            }
+        } else {
+            if (args.length == 3) {
+                List<String> options = new ArrayList<>();
+                options.add("PvP");
+                options.add("PvE");
+                return options;
+            } else if (args.length == 4) {
+                List<String> options = new ArrayList<>();
+                options.add("Yes");
+                options.add("No");
+                return options;
+            } else if (args.length == 5) {
+                List<String> options = new ArrayList<>();
+                options.add("None");
+                options.add("Mod");
+                options.add("Admin");
+                options.add("Dev");
+                options.add("Owner");
+                return options;
+            }
         }
-
+        
         return null;
     }
 }
