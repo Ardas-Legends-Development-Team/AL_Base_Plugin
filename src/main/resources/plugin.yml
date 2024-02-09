@@ -11,11 +11,11 @@ commands:
   stockpile:
     description: The command for stockpile features
     permission: al.stockpile.*
-    usage: /<command> [info|stored|add]
+    usage: /<command> [info|stored|add] {faction}
   rpchar:
     description: The command to set a rpchar-player's title, nick, suffix and permissions
     permission: al.staff.rpchar
-    usage: /<command> [ign] [charname] [pvp] [leader] [staff] {title}
+    usage: /<command> [ign] [charname] [pvp] [leader] [staffRole] {title} without backend or /<command> [ign] [staffRole] {title} with backend
   alreload:
     description: The command to reload a specific reloadable or all reloadable features
     permission: al.staff.reload
