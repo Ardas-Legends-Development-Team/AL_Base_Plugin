@@ -50,11 +50,11 @@ public final class AL_Base_Plugin extends JavaPlugin {
         saveDefaultConfig();
         //Setting up the stockpileConfig.yml
         StockpileConfig.addDefaults();
-
+        /*
         if (getConfig().contains("backend.online")) {
             backendOnline = getConfig().getBoolean("backend.online");
         }
-
+         */
         //set up the ALApiClient
         apiClient = new ALApiClient();
 

@@ -1,5 +1,6 @@
 package com.ardaslegends.albaseplugin.tabcompletion;
 
+import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -19,7 +20,17 @@ public class TabCompletionRPChar implements TabCompleter {
      */
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 
-        if(args.length == 2) {
+        if (args.length == 3) {
+            List<String> options = new ArrayList<>();
+            options.add("PvP");
+            options.add("PvE");
+            return options;
+        } else if (args.length == 4) {
+            List<String> options = new ArrayList<>();
+            options.add("Yes");
+            options.add("No");
+            return options;
+        } else if (args.length == 5 || AL_Base_Plugin.getBackendOnline() && args.length == 2) {
             List<String> options = new ArrayList<>();
             options.add("None");
             options.add("Mod");
@@ -28,7 +39,6 @@ public class TabCompletionRPChar implements TabCompleter {
             options.add("Owner");
             return options;
         }
-
         return null;
     }
 }
