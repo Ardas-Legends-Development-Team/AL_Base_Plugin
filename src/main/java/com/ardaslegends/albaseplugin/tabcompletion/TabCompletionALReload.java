@@ -1,5 +1,6 @@
 package com.ardaslegends.albaseplugin.tabcompletion;
 
+import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,9 @@ public class TabCompletionALReload implements TabCompleter {
             List<String> options = new ArrayList<>();
             options.add(Reloadables.BASE.name());
             options.add(Reloadables.STOCKPILE.name());
-            options.add(Reloadables.FACTIONS.name());
+            if (AL_Base_Plugin.getBackendOnline()) {
+                options.add(Reloadables.FACTIONS.name());
+            }
             return options;
         }
         return null;

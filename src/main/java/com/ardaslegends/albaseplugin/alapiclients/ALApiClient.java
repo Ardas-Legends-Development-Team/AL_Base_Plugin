@@ -63,8 +63,9 @@ public class ALApiClient {
             if(response.getStatusLine().getStatusCode() == 200){
                 HttpEntity entity = response.getEntity();
                 try {
-                    playerModel = mapper.readValue(EntityUtils.toString(entity),
-                                                   PlayerModel.class);
+                    String entityString = EntityUtils.toString(entity);
+                    playerModel = mapper.readValue(entityString,
+                            PlayerModel.class);
                 } catch (IOException e) {
                     logger.log(Level.WARNING, e.getMessage());
                 }
@@ -161,8 +162,13 @@ public class ALApiClient {
                            + " "
                            + response.getStatusLine().getReasonPhrase());
             }
+
+            if (!AL_Base_Plugin.getBackendOnline()) {
+                AL_Base_Plugin.setBackendOnline(true);
+            }
         } else {
             logger.log(Level.WARNING, "No response received from the backend");
+            AL_Base_Plugin.setBackendOnline(false);
         }
 
         return factions;

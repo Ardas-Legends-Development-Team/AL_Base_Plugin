@@ -16,7 +16,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +31,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
     private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
     private static final String             errorPrefix = msgPrefix + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
     private static final List<FactionModel>     factions           = new ArrayList<>();
+    private static boolean backendOnline;
 
     /**
      * onEnable is being run whenever the plugin is started.
@@ -50,7 +50,11 @@ public final class AL_Base_Plugin extends JavaPlugin {
         saveDefaultConfig();
         //Setting up the stockpileConfig.yml
         StockpileConfig.addDefaults();
-
+        /*
+        if (getConfig().contains("backend.online")) {
+            backendOnline = getConfig().getBoolean("backend.online");
+        }
+         */
         //set up the ALApiClient
         apiClient = new ALApiClient();
 
@@ -107,7 +111,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
     public void reload() {
         reloadConfig();
         StockpileConfig.reload();
-        setUpFactions();
+        factions.addAll(setUpFactions());
     }
 
     /**
@@ -127,7 +131,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
                 StockpileConfig.reload();
                 break;
             case FACTIONS:
-                setUpFactions();
+                factions.addAll(setUpFactions());
                 break;
             default:
                 break;
@@ -152,6 +156,14 @@ public final class AL_Base_Plugin extends JavaPlugin {
 
     public static List<FactionModel> getFactions() {
         return factions;
+    }
+
+    public static boolean getBackendOnline() {
+        return backendOnline;
+    }
+
+    public static void setBackendOnline(boolean backendStatus) {
+        backendOnline = backendStatus;
     }
 
 }
