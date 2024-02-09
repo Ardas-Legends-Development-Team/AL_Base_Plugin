@@ -101,6 +101,7 @@ public class CommandStockpile implements CommandExecutor {
                     sender.sendMessage(errorPrefix + "The Backend is offline, this command requires the Backend to be online. Please contact the devs.");
                     return true;
                 }
+                PlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
                 switch(args[0]) {
                     case "info":
                         StringBuilder sbInfo = new StringBuilder();
@@ -133,6 +134,7 @@ public class CommandStockpile implements CommandExecutor {
                     sender.sendMessage(errorPrefix + "The Backend is offline, this command requires the Backend to be online. Please contact the devs.");
                     return true;
                 }
+                PlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
                 //If no argument was given, we assume /stockpile add
                 subcmdAdd(player, playerModel, heldItem);
                 player.sendMessage(msgPrefix +
