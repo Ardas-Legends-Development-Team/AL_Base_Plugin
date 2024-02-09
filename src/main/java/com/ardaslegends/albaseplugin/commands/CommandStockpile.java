@@ -40,7 +40,6 @@ public class CommandStockpile implements CommandExecutor {
         //Checks if the sender of the command is actually a player
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            PlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
             int heldItemSlot = player.getInventory().getHeldItemSlot();
             ItemStack heldItem =
                     player.getInventory().getItem(heldItemSlot);
@@ -248,6 +247,7 @@ public class CommandStockpile implements CommandExecutor {
      * -101: manflesh is not allowed for the players faction
      *
      * @param item The item, of which the stockpile value is to be calculated
+	 * @param factionName The faction, the item would be stored
      * @return the value for the stockpile, or an error code
      */
     private double getStockpileValue(ItemStack item, String factionName){
