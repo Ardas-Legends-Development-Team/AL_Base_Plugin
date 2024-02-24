@@ -24,7 +24,8 @@ public class CommandRPChar implements CommandExecutor {
     /**
      * onCommand is being run if the command rpchar was executed
      * the syntax of the cmd is
-     * - /rpchar [ign] [staff] {title}
+     * - If the backend is online: /rpchar [ign] [staff] {title}
+     * - If the backend is offline: /rpchar [ign] [charname] [PvP] [Leader] [Staff-Role] {title}
      *
      * @param sender Source of the command
      * @param command Command which was executed
@@ -90,8 +91,10 @@ public class CommandRPChar implements CommandExecutor {
         StringBuilder titleSb = new StringBuilder();
         if (args.length > 5 && !AL_Base_Plugin.getBackendOnline() || args.length > 2) {
             for (int i = AL_Base_Plugin.getBackendOnline() ? 2 : 5; i < args.length; i++) {
-                titleSb.append(args[i])
-                       .append(" ");
+                titleSb.append(args[i]);
+                if (i != (args.length - 1)) {
+                    titleSb.append(" ");
+                }
             }
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
                                    "manuaddv " + target.getName() + " prefix "
