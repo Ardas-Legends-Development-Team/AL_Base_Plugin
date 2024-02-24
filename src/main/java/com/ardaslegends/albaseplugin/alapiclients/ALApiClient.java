@@ -199,4 +199,8 @@ public class ALApiClient {
             return 0;
         }
     }
+
+    public void getResources(String factionName) {
+
+    }
 }
