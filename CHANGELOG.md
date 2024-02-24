@@ -13,3 +13,6 @@ ___
 + added the staff command /leaderactivity with the syntax `/leaderactivity {faction}`
 + added a TabCompletion for the /leaderactivity command
 ___
+## Version: 1.0.1:
+### Changed:
+* the Command /rpchar now generates the title without an appended space
