@@ -1,6 +1,7 @@
 package com.ardaslegends.albaseplugin.commands;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
+import com.ardaslegends.albaseplugin.inventory.FactionResources;
 import com.ardaslegends.albaseplugin.models.FactionModel;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -46,6 +47,7 @@ public class CommandRefreshResources implements CommandExecutor {
     }
 
     private void refreshResourcesForFaction(String factionName){
-
+        FactionResources refreshedResources = new FactionResources(factionName);
+        //Loading Resources from the backend and adding them to the list
     }
 }

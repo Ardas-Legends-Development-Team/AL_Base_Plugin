@@ -10,8 +10,24 @@ public class FactionResources {
     public String factionName;
     private Inventory resources;
 
-    FactionResources (String faction) {
+    public FactionResources (String faction) {
         factionName = faction;
         List<ItemStack> resources;
+    }
+
+    public void addResource(ItemStack resource) {
+        resources.addItem(resource);
+    }
+
+    public void clear () {
+        resources.clear();
+    }
+
+    public void save () {
+        //Saving the list to a file with the faction-name
+    }
+
+    public void load() {
+        //Loading the list from a file with the faction-name
     }
 }
