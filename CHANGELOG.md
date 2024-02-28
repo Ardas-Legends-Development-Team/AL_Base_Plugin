@@ -16,3 +16,7 @@ ___
 ## Version: 1.0.1:
 ### Changed:
 * the Command /rpchar now generates the title without an appended space
+___
+## Version: 1.0.2:
+### Changed:
+* added a config to toggle the backend connection attempt at the start of the server
