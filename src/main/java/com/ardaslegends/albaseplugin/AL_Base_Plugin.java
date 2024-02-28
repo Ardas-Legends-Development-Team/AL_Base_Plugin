@@ -58,8 +58,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         //set up the ALApiClient
         apiClient = new ALApiClient();
 
-        //Loading all Factions
-        factions.addAll(setUpFactions());
+        if (getConfig().contains("backend.online") && getConfig.getBoolean("backend.online")) {
+            //Loading all Factions
+            factions.addAll(setUpFactions());
+        }
 
         //Setting up the reload functionality, which can not be disabled
         getCommand("alreload").setExecutor(new CommandALReload());
