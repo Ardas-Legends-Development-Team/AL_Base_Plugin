@@ -48,6 +48,6 @@ public class CommandRefreshResources implements CommandExecutor {
 
     private void refreshResourcesForFaction(String factionName){
         FactionResources refreshedResources = new FactionResources(factionName);
-        //Loading Resources from the backend and adding them to the list
+        //TODO: Resources from the backend and adding them to the list
     }
 }

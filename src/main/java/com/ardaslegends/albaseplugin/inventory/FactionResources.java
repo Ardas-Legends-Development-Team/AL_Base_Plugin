@@ -24,10 +24,10 @@ public class FactionResources {
     }
 
     public void save () {
-        //Saving the list to a file with the faction-name
+        //TODO: Saving the list to a file with the faction-name
     }
 
     public void load() {
-        //Loading the list from a file with the faction-name
+        //TODO: Loading the list from a file with the faction-name
     }
 }

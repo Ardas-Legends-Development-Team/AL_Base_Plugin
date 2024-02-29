@@ -201,6 +201,7 @@ public class ALApiClient {
     }
 
     public void getResources(String factionName) {
-
+        //TODO: fetch Resources from the backend
+        //Request String http://localhost:8080/api/claimbuild?page=0&size=1
     }
 }
