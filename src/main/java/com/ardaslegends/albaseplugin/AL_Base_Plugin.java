@@ -1,17 +1,11 @@
 package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
-import com.ardaslegends.albaseplugin.commands.CommandLeaderActivity;
-import com.ardaslegends.albaseplugin.commands.CommandRPChar;
-import com.ardaslegends.albaseplugin.commands.CommandALReload;
-import com.ardaslegends.albaseplugin.commands.CommandStockpile;
+import com.ardaslegends.albaseplugin.commands.*;
 import com.ardaslegends.albaseplugin.models.FactionModel;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
-import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
-import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionRPChar;
-import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionLeaderActivity;
-import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionStockpile;
+import com.ardaslegends.albaseplugin.tabcompletion.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -62,6 +56,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         //Setting up the reload functionality, which can not be disabled
         getCommand("alreload").setExecutor(new CommandALReload());
         getCommand("alreload").setTabCompleter(new TabCompletionALReload());
+
+        //Setting up the util command, which can´t be disabled
+        getCommand("alutil").setExecutor(new CommandUtility());
+        getCommand("alutil").setTabCompleter(new TabCompletionUtility());
 
         //Setting up the leaderActivity Command, that we don´t need to toggle
         getCommand("leaderactivity").setExecutor(new CommandLeaderActivity());
