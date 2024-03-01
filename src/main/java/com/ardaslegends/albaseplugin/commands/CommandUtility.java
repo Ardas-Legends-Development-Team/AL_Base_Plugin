@@ -24,7 +24,7 @@ public class CommandUtility implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length != 1) {
+        if (args.length == 1) {
             if (args[0].equalsIgnoreCase("getItemStack")) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
