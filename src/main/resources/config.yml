@@ -1,6 +1,6 @@
 # The Backend Connection to be used for the HTTP-Requests
 backend:
-  online: true
+  online: false
   prod: false
   host: ardas-legends.kekx.eu
   port: 8080

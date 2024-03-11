@@ -27,7 +27,7 @@ public class CommandStockpile implements CommandExecutor {
 
     /**
      * onCommand is being run if the command stockpile was executed
-     * The Syntax for the command is simple: /stockpile
+     * The Syntax for the command is simple: /stockpile [info|stored|add] {faction}
      *
      * @param sender Source of the command
      * @param command Command which was executed

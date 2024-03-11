@@ -11,13 +11,20 @@ For more information on the system visit the [AL Discord](https://discord.gg/Uuw
 If you wish to contact the maintainers of this project, 
 please join the [AL Discord](https://discord.gg/UuwHfkA2Df) and contact one of the people listed as Autors.
 
-## Branch structure
-This project uses a master branch, that contains the state of the project currently run on the Ardas Legends Minecraft Server,
-a develop branch, that is the base branch for development and is merged into master upon a release.
-From the develop branch feature, task and release branches are created for the respective issues, that are being worked on.
-
 ## Changelog
 You can find an up-to-date changelog [here](CHANGELOG.md).
+
+## Roadmap
+The following Roadmap is not guaranteed and can change any time.
+
+1. Resources Update
+2. PvP Update
+3. Factions Update
+4. Event Update
+5. Backend Sync and Staff QoL Update
+6. Build Protection Update
+
+You can always find an up-to-date and more detailed version of the Roadmap [here](ROADMAP.md).
 
 ## How to run this plugin
 In order to run this plugin, you need to have an instance of the Ardas Legends App running, that this plugin can communicate with.
@@ -25,4 +32,4 @@ You just need to place the plugin into the plugin folder of your Minecraft Serve
 In order for the plugin to communicate with you version of the Ardas Legends App, edit the config.yml after starting the server the with the plugin the first time.
 
 ## How to contribute
-If you wish to contribute, please contact Anedhel on the Ardas Legends Discord. This section is yet to be set up.
+If you wish to contribute, check [here](CONTRIBUTING.md) first.

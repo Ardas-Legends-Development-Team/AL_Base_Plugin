@@ -13,6 +13,9 @@ public class CommandALReload implements CommandExecutor {
 
     /**
      * The reload command, used to reload either all reloadables or a specific reloadable
+     * The commands Syntax is
+     * /alreload {base|stockpile|factions}
+     *
      * @param sender Source of the command
      * @param command Command which was executed
      * @param label Alias of the command which was used
