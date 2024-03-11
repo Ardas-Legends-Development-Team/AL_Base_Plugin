@@ -2,8 +2,8 @@ package com.ardaslegends.albaseplugin.commands;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
-import com.ardaslegends.albaseplugin.models.FactionStockpileModel;
-import com.ardaslegends.albaseplugin.models.PlayerModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionStockpileModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendPlayerModel;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -69,7 +69,7 @@ public class CommandStockpile implements CommandExecutor {
                         return true;
                     }
                     if (player.hasPermission("al.staff.stockpileStoredFaction")) {
-                        FactionStockpileModel factionStockpileModel = apiClient.getFactionStockpile(args[1].replaceAll("_", "%20"));
+                        BackendFactionStockpileModel factionStockpileModel = apiClient.getFactionStockpile(args[1].replaceAll("_", "%20"));
                         if (factionStockpileModel.getFactionName() != null) {
                             player.sendMessage(msgPrefix
                                                + "The faction "
@@ -101,7 +101,7 @@ public class CommandStockpile implements CommandExecutor {
                     sender.sendMessage(errorPrefix + "The Backend is offline, this command requires the Backend to be online. Please contact the devs.");
                     return true;
                 }
-                PlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
+                BackendPlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
                 switch(args[0]) {
                     case "info":
                         StringBuilder sbInfo = new StringBuilder();
@@ -134,7 +134,7 @@ public class CommandStockpile implements CommandExecutor {
                     sender.sendMessage(errorPrefix + "The Backend is offline, this command requires the Backend to be online. Please contact the devs.");
                     return true;
                 }
-                PlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
+                BackendPlayerModel playerModel = apiClient.getPlayerByIGN(player.getName());
                 //If no argument was given, we assume /stockpile add
                 subcmdAdd(player, playerModel, heldItem);
                 player.sendMessage(msgPrefix +
@@ -159,13 +159,13 @@ public class CommandStockpile implements CommandExecutor {
      * @param playerModel a model of the player running the command
      * @param heldItem the item in the players hand
      */
-    private void subcmdAdd(Player player, PlayerModel playerModel, ItemStack heldItem) {
+    private void subcmdAdd(Player player, BackendPlayerModel playerModel, ItemStack heldItem) {
         StringBuilder sbAdd = new StringBuilder();
         double value = createInfoMsg(heldItem, playerModel.getFaction(), sbAdd);
         player.sendMessage(sbAdd.toString());
         if (value > 0) {
-            FactionStockpileModel factionStockpileModel =
-                    new FactionStockpileModel(playerModel.getFaction(), (int)value);
+            BackendFactionStockpileModel factionStockpileModel =
+                    new BackendFactionStockpileModel(playerModel.getFaction(), (int)value);
             int statusCode = apiClient.addStockpile(factionStockpileModel);
             switch (statusCode) {
                 case 200:
@@ -235,7 +235,7 @@ public class CommandStockpile implements CommandExecutor {
      * @return the value stored in the stockpile
      */
     private double getStored(String factionName) {
-        FactionStockpileModel factionStockpileModel = apiClient.getFactionStockpile(factionName);
+        BackendFactionStockpileModel factionStockpileModel = apiClient.getFactionStockpile(factionName);
         return factionStockpileModel.getAmount();
     }
 

@@ -1,9 +1,7 @@
 package com.ardaslegends.albaseplugin.alapiclients.deseralizers;
 
-import com.ardaslegends.albaseplugin.AL_Base_Plugin;
-import com.ardaslegends.albaseplugin.models.PlayerModel;
-import com.ardaslegends.albaseplugin.models.RPCharModel;
-import com.fasterxml.jackson.core.JacksonException;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendPlayerModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendRPCharModel;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -25,15 +23,15 @@ public class CustomPlayerDeserializer extends StdDeserializer {
     }
 
     @Override
-    public PlayerModel deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public BackendPlayerModel deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
         String ign = node.get("ign").asText();
         String faction = node.get("faction").asText();
         boolean isStaff = node.get("isStaff").booleanValue();
         String rpCharString = node.get("rpChar").toString();
 
-        RPCharModel rpCharModel = mapper.readValue(rpCharString, RPCharModel.class);
+        BackendRPCharModel rpCharModel = mapper.readValue(rpCharString, BackendRPCharModel.class);
 
-        return new PlayerModel(ign, faction, rpCharModel, isStaff);
+        return new BackendPlayerModel(ign, faction, rpCharModel, isStaff);
     }
 }

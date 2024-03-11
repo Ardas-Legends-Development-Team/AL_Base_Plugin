@@ -1,9 +1,7 @@
 package com.ardaslegends.albaseplugin.alapiclients;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
-import com.ardaslegends.albaseplugin.models.FactionModel;
-import com.ardaslegends.albaseplugin.models.FactionStockpileModel;
-import com.ardaslegends.albaseplugin.models.PlayerModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -39,13 +37,13 @@ public class ALApiClient {
     private final int port = config.getInt("backend.port");
 
     /**
-     * Sends a request to the backend, to get a player by his ign
+     * Sends a request to the backend, to get a player by his ign.
      *
-     * @param ign The Players IGN
-     * @return The PlayerModel for the requested player
+     * @param ign The Players IGN.
+     * @return The PlayerModel for the requested player.
      */
-    public PlayerModel getPlayerByIGN(String ign){
-        PlayerModel playerModel = new PlayerModel();
+    public BackendPlayerModel getPlayerByIGN(String ign){
+        BackendPlayerModel playerModel = new BackendPlayerModel();
 
         String requestUri = scheme + "://" + host + ":" + port + "/api/player/ign/" + ign;
 
@@ -65,16 +63,16 @@ public class ALApiClient {
                 try {
                     String entityString = EntityUtils.toString(entity);
                     playerModel = mapper.readValue(entityString,
-                            PlayerModel.class);
+                            BackendPlayerModel.class);
                 } catch (IOException e) {
                     logger.log(Level.WARNING, e.getMessage());
                 }
             }else {
                 logger.log(Level.WARNING,
-                           "Unexpected error: "
-                           + response.getStatusLine().getStatusCode()
-                           + " "
-                           + response.getStatusLine().getReasonPhrase());
+                        "Unexpected error: "
+                                + response.getStatusLine().getStatusCode()
+                                + " "
+                                + response.getStatusLine().getReasonPhrase());
             }
         } else {
             logger.log(Level.WARNING, "No response received from the backend");
@@ -85,11 +83,12 @@ public class ALApiClient {
 
     /**
      * Sends a request to the backend, to get a Factions stockpile, by the faction name.
-     * @param faction the faction, of which the stockpile info is requested
-     * @return the FactionStockpileModel returned from the backend
+     *
+     * @param faction the faction, of which the stockpile info is requested.
+     * @return the FactionStockpileModel returned from the backend.
      */
-    public FactionStockpileModel getFactionStockpile(String faction){
-        FactionStockpileModel stockpileModel = new FactionStockpileModel();
+    public BackendFactionStockpileModel getFactionStockpile(String faction){
+        BackendFactionStockpileModel stockpileModel = new BackendFactionStockpileModel();
 
         String requestUri = scheme + "://" + host + ":" + port + "/api/faction/get/stockpile/info/" + faction;
 
@@ -108,19 +107,20 @@ public class ALApiClient {
                 HttpEntity entity = response.getEntity();
                 try {
                     stockpileModel = mapper.readValue(EntityUtils.toString(entity),
-                                                      FactionStockpileModel.class);
+                            BackendFactionStockpileModel.class);
                 } catch (IOException e) {
                     logger.log(Level.WARNING, e.getMessage());
                 }
             }else {
                 logger.log(Level.WARNING,
-                           "Unexpected error: "
-                           + response.getStatusLine().getStatusCode()
-                           + " "
-                           + response.getStatusLine().getReasonPhrase());
+                        "Unexpected error: "
+                                + response.getStatusLine().getStatusCode()
+                                + " "
+                                + response.getStatusLine().getReasonPhrase());
             }
         } else {
             logger.log(Level.WARNING, "No response received from the backend");
+            AL_Base_Plugin.setBackendOnline(false);
         }
 
         return stockpileModel;
@@ -128,10 +128,11 @@ public class ALApiClient {
 
     /**
      * Sends a request to the backend, to get a List of all Factions.
-     * @return The List returned from the backend
+     *
+     * @return The List returned from the backend.
      */
-    public List<FactionModel> getFactions() {
-        List<FactionModel> factions = new ArrayList<>();
+    public List<BackendFactionModel> getFactions() {
+        List<BackendFactionModel> factions = new ArrayList<>();
 
         String amount = "?size=100";
 
@@ -175,11 +176,12 @@ public class ALApiClient {
     }
 
     /**
-     * Sends a post to the backend in order to add value to the backend
-     * @param fsm the FactionStockpileModel with the faction and amount to be added for the faction
-     * @return the returned status code
+     * Sends a post to the backend in order to add value to the backend.
+     *
+     * @param fsm the FactionStockpileModel with the faction and amount to be added for the faction.
+     * @return the returned status code.
      */
-    public int addStockpile(FactionStockpileModel fsm) {
+    public int addStockpile(BackendFactionStockpileModel fsm) {
         try {
             String postUri = scheme + "://" + host + ":" + port + "/api/faction/update/stockpile/add";
 
@@ -200,8 +202,95 @@ public class ALApiClient {
         }
     }
 
-    public void getResources(String factionName) {
-        //TODO: fetch Resources from the backend
-        //Request String http://localhost:8080/api/claimbuild?page=0&size=1
+    /**
+     * Sends a request to the backend to get a List of all Claimbuilds of the given Faction.
+     *
+     * @param faction The Faction of which the claimbuilds are requested.
+     * @return The List returned from the backend.
+     */
+    public List<BackendClaimbuildModel> getClaimbuilds (String faction) {
+        List<BackendClaimbuildModel> claimbuilds = new ArrayList<>();
+
+        String requestUri = scheme + "://" + host + ":" + port + "/api/claimbuild/faction?faction=" + faction;
+
+        logger.log(Level.INFO, "Sending request: " + requestUri);
+
+        HttpGet request = new HttpGet(requestUri);
+        CloseableHttpResponse response = null;
+        try {
+            response = httpClient.execute(request);
+        } catch (IOException e) {
+            logger.log(Level.WARNING, e.getMessage());
+        }
+
+        if (response != null) {
+            if (response.getStatusLine().getStatusCode() == 200) {
+                HttpEntity entity = response.getEntity();
+                try {
+                    String entityString = EntityUtils.toString(entity);
+                    claimbuilds = mapper.readValue(entityString, ClaimbuildResponseWrapper.class).getContent();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                logger.log(Level.WARNING, "Unexpected error: "
+                        + response.getStatusLine().getStatusCode()
+                        + " "
+                        + response.getStatusLine().getReasonPhrase());
+            }
+
+            if (!AL_Base_Plugin.getBackendOnline()) {
+                AL_Base_Plugin.setBackendOnline(true);
+            }
+        } else {
+            logger.log(Level.WARNING, "No response received from the backend");
+            AL_Base_Plugin.setBackendOnline(false);
+        }
+
+        return claimbuilds;
+    }
+
+    /**
+     * Sends a request to the backend to get the information of the given region.
+     *
+     * @param regionNr the region ID, of the region requested.
+     * @return The Region returned from the backend.
+     */
+    public BackendRegionModel getRegionInfo (int regionNr) {
+        BackendRegionModel regionModel = new BackendRegionModel();
+
+        String requestUri = scheme + "://" + host + ":" + port + "/api/region/" + regionNr;
+
+        logger.log(Level.INFO, "Sending request: " + requestUri);
+
+        HttpGet request = new HttpGet(requestUri);
+        CloseableHttpResponse response = null;
+        try {
+            response = httpClient.execute(request);
+        } catch (IOException e) {
+            logger.log(Level.WARNING, e.getMessage());
+        }
+
+        if (response != null) {
+            if(response.getStatusLine().getStatusCode() == 200){
+                HttpEntity entity = response.getEntity();
+                try {
+                    regionModel = mapper.readValue(EntityUtils.toString(entity),
+                            BackendRegionModel.class);
+                } catch (IOException e) {
+                    logger.log(Level.WARNING, e.getMessage());
+                }
+            }else {
+                logger.log(Level.WARNING,
+                        "Unexpected error: "
+                                + response.getStatusLine().getStatusCode()
+                                + " "
+                                + response.getStatusLine().getReasonPhrase());
+            }
+        } else {
+            logger.log(Level.WARNING, "No response received from the backend");
+        }
+
+        return regionModel;
     }
 }

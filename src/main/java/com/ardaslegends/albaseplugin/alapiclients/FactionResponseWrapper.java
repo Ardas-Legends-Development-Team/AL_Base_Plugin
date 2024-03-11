@@ -1,6 +1,6 @@
 package com.ardaslegends.albaseplugin.alapiclients;
 
-import com.ardaslegends.albaseplugin.models.FactionModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FactionResponseWrapper {
-    private List<FactionModel> content;
+    private List<BackendFactionModel> content;
 
-    public List<FactionModel> getContent() {
+    public List<BackendFactionModel> getContent() {
         return content;
     }
 
-    public void setContent(List<FactionModel> content) {
+    public void setContent(List<BackendFactionModel> content) {
         this.content = content;
     }
 }

@@ -2,8 +2,8 @@ package com.ardaslegends.albaseplugin.commands;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
-import com.ardaslegends.albaseplugin.models.FactionModel;
-import com.ardaslegends.albaseplugin.models.PlayerModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendPlayerModel;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -58,7 +58,7 @@ public class CommandRPChar implements CommandExecutor {
 
         if (AL_Base_Plugin.getBackendOnline()) {
             //Fetching the Players Data from the backend
-            PlayerModel playerModel = apiClient.getPlayerByIGN(ign);
+            BackendPlayerModel playerModel = apiClient.getPlayerByIGN(ign);
 
             if (playerModel == null) {
                 sender.sendMessage(errorPrefix + "The player " + ign + " is not registered in the backend.");
@@ -74,8 +74,8 @@ public class CommandRPChar implements CommandExecutor {
             charname = playerModel.getRpChar().getName();
             pvp = playerModel.getRpChar().getPvP();
 
-            List<FactionModel> factionModels = apiClient.getFactions();
-            FactionModel factionModel = factionModels.get(factionModels.indexOf(new FactionModel(playerModel.getFaction())));
+            List<BackendFactionModel> factionModels = apiClient.getFactions();
+            BackendFactionModel factionModel = factionModels.get(factionModels.indexOf(new BackendFactionModel(playerModel.getFaction())));
             leader = factionModel.getLeader().equalsIgnoreCase(ign);
 
             staffRole = playerModel.getIsStaff() ? args[1] : "none";

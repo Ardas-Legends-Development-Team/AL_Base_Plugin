@@ -1,4 +1,4 @@
-package com.ardaslegends.albaseplugin.models;
+package com.ardaslegends.albaseplugin.models.BackendModels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * This Model is used for the backend call of getting a FactionStockpile from the backend
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FactionStockpileModel {
+public class BackendFactionStockpileModel {
     private String factionName;
     private int amount;
 
-    public FactionStockpileModel(String factionName, int amount) {
+    public BackendFactionStockpileModel(String factionName, int amount) {
         this.factionName = factionName;
         this.amount = amount;
     }
 
-    public FactionStockpileModel() {
+    public BackendFactionStockpileModel() {
 
     }
 

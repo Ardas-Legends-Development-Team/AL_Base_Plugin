@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The StockpileConfig and all related things are defined in this class.
@@ -19,6 +20,7 @@ public class StockpileConfig {
 
     private static File stockpile;
     private static       FileConfiguration stockpileConfig;
+    private static final Logger logger = Bukkit.getServer().getLogger();
     private static final AL_Base_Plugin    al_base_plugin = AL_Base_Plugin.getPlugin();
 
     /**
@@ -33,10 +35,7 @@ public class StockpileConfig {
             try {
                 stockpile.createNewFile();
             } catch (IOException e) {
-                Bukkit.getServer().getLogger().log(Level.WARNING, "Could not "
-                                                                  + "create "
-                                                                  + "the file"
-                                                                  + "stockpileConfig.yml");
+                logger.log(Level.WARNING, "Could not create the file stockpileConfig.yml");
             }
         }
         stockpileConfig = YamlConfiguration.loadConfiguration(stockpile);
@@ -49,9 +48,7 @@ public class StockpileConfig {
         try {
             stockpileConfig.save(stockpile);
         } catch (IOException e) {
-            Bukkit.getServer().getLogger().log(Level.WARNING, "Could not save"
-                                                              + " the file "
-                                                              + "stockpileConfig.yml");
+            logger.log(Level.WARNING, "Could not save the file stockpileConfig.yml");
         }
     }
 

@@ -1,7 +1,7 @@
 package com.ardaslegends.albaseplugin.commands;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
-import com.ardaslegends.albaseplugin.models.FactionModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,7 +13,7 @@ public class CommandLeaderActivity implements CommandExecutor {
 
     String msgPrefix = AL_Base_Plugin.getMsgPrefix();
     String errorPrefix = AL_Base_Plugin.getErrorPrefix();
-    List<FactionModel> factions = AL_Base_Plugin.getFactions();
+    List<BackendFactionModel> factions = AL_Base_Plugin.getFactions();
 
     /**
      * onCommand is being run, if the command leaderactivity is run
@@ -45,7 +45,7 @@ public class CommandLeaderActivity implements CommandExecutor {
                 }
             });
         } else if (args.length == 1) {
-            FactionModel requestedFaction = new FactionModel(args[0].replace('_', ' '));
+            BackendFactionModel requestedFaction = new BackendFactionModel(args[0].replace('_', ' '));
             if (factions.contains(requestedFaction)) {
                 int requestedIndex = factions.indexOf(requestedFaction);
                 String leader = factions.get(requestedIndex).getLeader();

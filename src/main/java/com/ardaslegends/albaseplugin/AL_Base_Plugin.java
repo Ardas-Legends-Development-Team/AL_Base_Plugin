@@ -5,7 +5,7 @@ import com.ardaslegends.albaseplugin.commands.CommandLeaderActivity;
 import com.ardaslegends.albaseplugin.commands.CommandRPChar;
 import com.ardaslegends.albaseplugin.commands.CommandALReload;
 import com.ardaslegends.albaseplugin.commands.CommandStockpile;
-import com.ardaslegends.albaseplugin.models.FactionModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.TabCompletionALReload;
@@ -30,7 +30,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
     private static final Logger             logger      = Bukkit.getServer().getLogger();
     private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
     private static final String             errorPrefix = msgPrefix + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
-    private static final List<FactionModel>     factions           = new ArrayList<>();
+    private static final List<BackendFactionModel>     factions           = new ArrayList<>();
     private static boolean backendOnline;
 
     /**
@@ -99,8 +99,8 @@ public final class AL_Base_Plugin extends JavaPlugin {
      * Long term the factions will be loaded from the backend
      * @return A List of Faction Models containing all relevant factions of the server
      */
-    private List<FactionModel> setUpFactions(){
-        List<FactionModel> factions = apiClient.getFactions();
+    private List<BackendFactionModel> setUpFactions(){
+        List<BackendFactionModel> factions = apiClient.getFactions();
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
         return factions;
     }
@@ -154,7 +154,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
         return errorPrefix;
     }
 
-    public static List<FactionModel> getFactions() {
+    public static List<BackendFactionModel> getFactions() {
         return factions;
     }
 
