@@ -4,6 +4,7 @@ import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -35,7 +36,16 @@ public class CommandUtility implements CommandExecutor {
                         sender.sendMessage(errorPrefix + "You need to hold an Item in your hand to run this cmd.");
                         return true;
                     }
-                    sender.sendMessage(msgPrefix + "ItemStack is: " + heldItem.toString());
+                    StringBuilder sb = new StringBuilder();
+                    net.minecraft.server.v1_7_R4.ItemStack heldNBT = CraftItemStack.asNMSCopy(heldItem);
+                    sb.append("Minecraft ID: ").append(heldItem.getTypeId());
+                    sb.append("Data: ").append(heldItem.getDurability());
+                    if (heldNBT.hasTag()) {
+                        sb.append("LOTREnchant: ").append(heldNBT.getTag().getString("LOTREnch"));
+                    } else {
+                        sb.append("LOTREnchant: " + "None");
+                    }
+                    sender.sendMessage(msgPrefix + "Item Info: " + sb.toString());
                 }
             }
         } else {
