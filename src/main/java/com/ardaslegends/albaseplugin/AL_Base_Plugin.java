@@ -165,7 +165,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
         resourceModelTax.setLotrEnchant("None");
         predefinedResources.add(resourceModelTax);
 
-        predefinedResources.forEach(safefileResourceModel -> SafeFileManager.safeResource(safefileResourceModel));
+        predefinedResources.forEach(SafeFileManager::safeResource);
     }
 
     /**
