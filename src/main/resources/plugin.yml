@@ -24,6 +24,10 @@ commands:
     description: A command to check the activity of factionLeaders
     permission: al.staff.leaderactivity
     usage: /<command> {factionName}
+  alutil:
+    description: A utility command for Ardas Legends
+    permission: al.staff.util
+    usage: /<command> [getItemStack]
 
 permissions:
   al.*:
@@ -34,6 +38,9 @@ permissions:
       al.staff.*: true
       al.staff.rpchar: true
       al.staff.stockpileStoredFaction: true
+      al.staff.reload: true
+      al.staff.leaderactivity: true
+      al.staff.util: true
   al.stockpile.*:
     description: Permission to run the stockpile commands with it´s sub command.
     default: op
@@ -58,6 +65,7 @@ permissions:
       al.staff.stockpileStoredFaction: true
       al.staff.reload: true
       al.staff.leaderactivity: true
+      al.staff.util: true
   al.staff.rpchar:
     description: Permission to run the /rpchar command
     default: op
@@ -69,4 +77,7 @@ permissions:
     default: op
   al.staff.leaderactivity:
     description: Permission to run /leaderActivity
+    default: op
+  al.staff.util:
+    description: Permission to run /alutil
     default: op
