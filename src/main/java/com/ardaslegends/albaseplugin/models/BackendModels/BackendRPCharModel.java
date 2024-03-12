@@ -10,6 +10,9 @@ public class BackendRPCharModel {
     private String name;
     private boolean pvp;
 
+    /*
+     * Constructors
+     */
     public BackendRPCharModel(String name, boolean pvp) {
         this.name = name;
         this.pvp  = pvp;
@@ -19,6 +22,9 @@ public class BackendRPCharModel {
 
     }
 
+    /*
+     * Getter and Setter
+     */
     public String getName() {
         return name;
     }

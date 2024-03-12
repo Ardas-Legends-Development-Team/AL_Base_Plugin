@@ -12,6 +12,9 @@ public class BackendRegionModel {
     String name;
     String region_type;
 
+    /*
+     * Constructors
+     */
     public BackendRegionModel(int id, String name, String region_type) {
         this.id = id;
         this.name = name;
@@ -21,6 +24,9 @@ public class BackendRegionModel {
     public BackendRegionModel() {
     }
 
+    /*
+     * Getter and Setter
+     */
     public int getId() {
         return id;
     }

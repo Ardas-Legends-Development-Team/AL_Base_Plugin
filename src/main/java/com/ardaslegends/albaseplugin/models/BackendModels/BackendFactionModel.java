@@ -11,6 +11,9 @@ public class BackendFactionModel {
     private String nameOfFaction;
     private String leaderIgn;
 
+    /*
+     * Constructors
+     */
     public BackendFactionModel(String nameOfFaction) {
         this.nameOfFaction = nameOfFaction;
     }
@@ -19,6 +22,9 @@ public class BackendFactionModel {
 
     }
 
+    /*
+     * Overwriting equals and hashCode
+     */
     @Override
     public boolean equals(Object object) {
 
@@ -36,6 +42,9 @@ public class BackendFactionModel {
         return nameOfFaction.hashCode();
     }
 
+    /*
+     * Getter and Setter
+     */
     public void setNameOfFaction(String nameOfFaction) {
         this.nameOfFaction = nameOfFaction;
     }

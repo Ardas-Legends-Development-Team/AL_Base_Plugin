@@ -1,10 +1,13 @@
 package com.ardaslegends.albaseplugin.alapiclients;
 
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendClaimbuildModel;
+import com.ardaslegends.albaseplugin.models.BackendModels.BackendProductionSiteModel;
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendRegionModel;
 import com.ardaslegends.albaseplugin.models.SavefileModels.SafefileClaimbuildModel;
 import com.ardaslegends.albaseplugin.models.SavefileModels.SafefileFactionModel;
 import com.ardaslegends.albaseplugin.models.SavefileModels.SafefileRegionModel;
+import com.ardaslegends.albaseplugin.models.SavefileModels.SafefileResourceModel;
+import com.ardaslegends.albaseplugin.resources.SafeFileManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,13 +55,16 @@ public class BackendToSafefileWrapper {
                 SafefileClaimbuildModel claimbuild = new SafefileClaimbuildModel(cbModel.getName());
                 claimbuild.setClaimbuildType(cbModel.getClaimbuildType());
 
-                //ToDo: Create the Resource SafefileModels for the claimbuild and add them to the ResourceList
-
+                //Create the Resource SafefileModels for the claimbuild and add them to the ResourceList
+                for (BackendProductionSiteModel prodSiteModel : cbModel.getProductionSites()) {
+                    //Fetch information from a json based on the name and put it into the resource
+                    SafefileResourceModel resource = SafeFileManager.loadResource(prodSiteModel.getProductionSite().getResource());
+                    claimbuild.addResource(resource);
+                }
                 //Add the claimbuild to the regions ClaimbuildList
                 region.addClaimbuild(claimbuild);
             }
         }
         return faction;
     }
-
 }

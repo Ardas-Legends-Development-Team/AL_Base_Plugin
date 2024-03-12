@@ -21,6 +21,10 @@ public class SafefileClaimbuildModel {
     public SafefileClaimbuildModel() {
     }
 
+    public void addResource (SafefileResourceModel resource) {
+        resources.add(resource);
+    }
+
     public String getName() {
         return name;
     }

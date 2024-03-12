@@ -16,6 +16,9 @@ public class BackendPlayerModel {
     private boolean isStaff;
     private BackendRPCharModel rpChar;
 
+    /*
+     * Constructors
+     */
     public BackendPlayerModel(String ign, String faction, BackendRPCharModel rpChar, boolean isStaff) {
         this.ign = ign;
         this.faction = faction;
@@ -27,6 +30,9 @@ public class BackendPlayerModel {
 
     }
 
+    /*
+     * Getter and Setter
+     */
     public String getFaction() {
         return faction;
     }

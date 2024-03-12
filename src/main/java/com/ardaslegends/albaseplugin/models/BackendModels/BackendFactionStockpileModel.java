@@ -11,6 +11,9 @@ public class BackendFactionStockpileModel {
     private String factionName;
     private int amount;
 
+    /*
+     * Constructors
+     */
     public BackendFactionStockpileModel(String factionName, int amount) {
         this.factionName = factionName;
         this.amount = amount;
@@ -20,6 +23,9 @@ public class BackendFactionStockpileModel {
 
     }
 
+    /*
+     * Getter and Setter
+     */
     public String getFactionName() {
         return factionName;
     }

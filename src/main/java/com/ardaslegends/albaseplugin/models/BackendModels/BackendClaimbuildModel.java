@@ -2,6 +2,8 @@ package com.ardaslegends.albaseplugin.models.BackendModels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+
 /**
  * This is a Model for a Claimbuild.
  * This Model is used for the backend call of getting a Claimbuild from the backend
@@ -9,31 +11,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BackendClaimbuildModel {
     String name;
-    int regionNr;
-    String claimbuildType;
+    int region;
+    String claimBuildType;
+    List<BackendProductionSiteModel> productionSites;
 
-    //ProductionSites
+    /*
+     * Constructors
+     */
+    public BackendClaimbuildModel(String name, int region, String claimBuildType) {
+        this.name = name;
+        this.region = region;
+        this.claimBuildType = claimBuildType;
+    }
 
+    public BackendClaimbuildModel() {
+    }
+
+    /*
+     * Getter and Setter
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getRegionNr() {
-        return regionNr;
+        return region;
     }
 
-    public void setRegionNr (int regionNr) {
-        this.regionNr = regionNr;
-    }
     public String getClaimbuildType() {
-        return claimbuildType;
+        return claimBuildType;
     }
 
-    public void setClaimbuildType(String claimbuildType) {
-        this.claimbuildType = claimbuildType;
+    public List<BackendProductionSiteModel> getProductionSites () {
+        return productionSites;
     }
 }
