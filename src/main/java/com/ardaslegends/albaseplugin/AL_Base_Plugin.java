@@ -3,7 +3,7 @@ package com.ardaslegends.albaseplugin;
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
 import com.ardaslegends.albaseplugin.commands.*;
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
-import com.ardaslegends.albaseplugin.models.SavefileModels.SafefileResourceModel;
+import com.ardaslegends.albaseplugin.resources.PredefinedResources;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.SafeFileManager;
 import com.ardaslegends.albaseplugin.resources.StockpileConfig;
@@ -47,9 +47,6 @@ public final class AL_Base_Plugin extends JavaPlugin {
         //Setting up the stockpileConfig.yml
         StockpileConfig.addDefaults();
 
-        SafeFileManager.setUpFolderStructure();
-        setUpPredefinedResources();
-
         //set up the ALApiClient
         apiClient = new ALApiClient();
 
@@ -71,17 +68,29 @@ public final class AL_Base_Plugin extends JavaPlugin {
         getCommand("leaderactivity").setTabCompleter(new TabCompletionLeaderActivity());
 
         //Setting up the stockpile feature if enabled
-        if (getConfig().contains("feature.stockpile")) {
+        if (getConfig().contains("feature.stockpile") && getConfig().getBoolean("feature.stockpile")) {
             //Registering the stockpile command
             getCommand("stockpile").setExecutor(new CommandStockpile());
             getCommand("stockpile").setTabCompleter(new TabCompletionStockpile());
+            logger.log(Level.INFO, msgPrefix + "Feature activated: Stockpile");
         }
 
         //Setting up the rpchar feature if enabled
-        if (getConfig().contains("feature.rpchar")) {
+        if (getConfig().contains("feature.rpchar") && getConfig().getBoolean("feature.rpchar")) {
             //Registering the rpchar command
             getCommand("rpchar").setExecutor(new CommandRPChar());
             getCommand("rpchar").setTabCompleter(new TabCompletionRPChar());
+            logger.log(Level.INFO, msgPrefix + "Feature activated: Roleplay Characters");
+        }
+
+        if (getConfig().contains("feature.monthly-resources") && getConfig().getBoolean("feature.monthly-resources")) {
+            //Setting up the default resources in the files
+            SafeFileManager.setUpFolderStructure();
+            PredefinedResources.setUpResources();
+
+            getCommand("refreshresources").setExecutor(new CommandRefreshResources());
+            getCommand("refreshresources").setTabCompleter(new TabCompletionRefreshResources());
+            logger.log(Level.INFO, msgPrefix + "Feature activated: Monthly Resources");
         }
     }
 
@@ -104,68 +113,6 @@ public final class AL_Base_Plugin extends JavaPlugin {
         List<BackendFactionModel> factions = apiClient.getFactions();
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
         return factions;
-    }
-
-    private void setUpPredefinedResources () {
-        List<SafefileResourceModel> predefinedResources = new ArrayList<>();
-
-        SafefileResourceModel resourceModelLumber = new SafefileResourceModel("Larch Wood");
-        resourceModelLumber.setMinecraftID(0);
-        resourceModelLumber.setData(0);
-        resourceModelLumber.setAmount(64);
-        resourceModelLumber.setLotrEnchant("None");
-        predefinedResources.add(resourceModelLumber);
-
-        SafefileResourceModel resourceModelQuarry = new SafefileResourceModel("Chalk");
-        resourceModelQuarry.setMinecraftID(0);
-        resourceModelQuarry.setData(0);
-        resourceModelQuarry.setAmount(64);
-        resourceModelQuarry.setLotrEnchant("None");
-        predefinedResources.add(resourceModelQuarry);
-
-        SafefileResourceModel resourceModelMine = new SafefileResourceModel("Coal");
-        resourceModelMine.setMinecraftID(0);
-        resourceModelMine.setData(0);
-        resourceModelMine.setAmount(64);
-        resourceModelMine.setLotrEnchant("None");
-        predefinedResources.add(resourceModelMine);
-
-        SafefileResourceModel resourceModelButcher = new SafefileResourceModel("Mutton");
-        resourceModelButcher.setMinecraftID(0);
-        resourceModelButcher.setData(0);
-        resourceModelButcher.setAmount(64);
-        resourceModelButcher.setLotrEnchant("None");
-        predefinedResources.add(resourceModelButcher);
-
-        SafefileResourceModel resourceModelFarm = new SafefileResourceModel("Potato");
-        resourceModelFarm.setMinecraftID(0);
-        resourceModelFarm.setData(0);
-        resourceModelFarm.setAmount(64);
-        resourceModelFarm.setLotrEnchant("None");
-        predefinedResources.add(resourceModelFarm);
-
-        SafefileResourceModel resourceModelDyeHouse = new SafefileResourceModel("Blue Dye");
-        resourceModelDyeHouse.setMinecraftID(0);
-        resourceModelDyeHouse.setData(0);
-        resourceModelDyeHouse.setAmount(64);
-        resourceModelDyeHouse.setLotrEnchant("None");
-        predefinedResources.add(resourceModelDyeHouse);
-
-        SafefileResourceModel resourceModelHouseOfLore = new SafefileResourceModel("Belegostian Scroll");
-        resourceModelHouseOfLore.setMinecraftID(0);
-        resourceModelHouseOfLore.setData(0);
-        resourceModelHouseOfLore.setAmount(64);
-        resourceModelHouseOfLore.setLotrEnchant("None");
-        predefinedResources.add(resourceModelHouseOfLore);
-
-        SafefileResourceModel resourceModelTax = new SafefileResourceModel("Coin");
-        resourceModelTax.setMinecraftID(0);
-        resourceModelTax.setData(0);
-        resourceModelTax.setAmount(64);
-        resourceModelTax.setLotrEnchant("None");
-        predefinedResources.add(resourceModelTax);
-
-        predefinedResources.forEach(SafeFileManager::safeResource);
     }
 
     /**

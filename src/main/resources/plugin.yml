@@ -28,6 +28,10 @@ commands:
     description: A utility command for Ardas Legends
     permission: al.staff.util
     usage: /<command> [getItemStack]
+  refreshresources:
+    description: A command to refresh a factions monthly resources
+    permission: al.staff.refreshresources
+    usage: /<command> [factionname]
 
 permissions:
   al.*:
@@ -41,6 +45,7 @@ permissions:
       al.staff.reload: true
       al.staff.leaderactivity: true
       al.staff.util: true
+      al.staff.refreshresources: true
   al.stockpile.*:
     description: Permission to run the stockpile commands with it´s sub command.
     default: op
@@ -66,6 +71,7 @@ permissions:
       al.staff.reload: true
       al.staff.leaderactivity: true
       al.staff.util: true
+      al.staff.refreshresources: true
   al.staff.rpchar:
     description: Permission to run the /rpchar command
     default: op
@@ -80,4 +86,7 @@ permissions:
     default: op
   al.staff.util:
     description: Permission to run /alutil
+    default: op
+  al.staff.refreshresources:
+    description: Permission to run /refreshresources
     default: op

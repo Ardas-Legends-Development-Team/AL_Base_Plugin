@@ -36,8 +36,21 @@ public class SafeFileManager {
         return resource;
     }
 
+    public static SafefileResourceModel loadResource (String name, String prodSite) {
+        SafefileResourceModel resource = new SafefileResourceModel(name);
+        File resourceFile = new File(predefinedResourceFolder + "\\" + prodSite.replace(' ','_'), name.replace(' ','_') + ".json");
+        try {
+            resource = mapper.readValue(resourceFile, SafefileResourceModel.class);
+        } catch (IOException e) {
+            logger.log(Level.WARNING, e.getMessage());
+        }
+        logger.log(Level.INFO, resource.toString());
+        return resource;
+    }
+
     public static void safeResource (SafefileResourceModel resource) {
-        File resourceFile = new File(predefinedResourceFolder.getAbsolutePath() + "\\"  + resource.getName().replace(' ','_') + ".json");
+        File resourceFile = new File(predefinedResourceFolder.getAbsolutePath()
+                + "\\"  + resource.getName().replace(' ','_') + ".json");
         if(!resourceFile.exists()){
             try {
                 resourceFile.createNewFile();
@@ -52,7 +65,27 @@ public class SafeFileManager {
                 logger.log(Level.WARNING, e.getMessage());
             }
         }
+    }
 
+    /**
+     * This method saves the given ResourceModel as predefined Resource.
+     * The path will be AL_Base_Plugin/Resources/Predefined_Resources/<Production Site>/<Resource>.json
+     *
+     * @param resource The Resource to be safed as predefined Resource
+     * @param prodSite The Production Site the Resource comes from
+     */
+    public static void safeResource (SafefileResourceModel resource, String prodSite) {
+        File resourceFile = new File(predefinedResourceFolder.getAbsolutePath()
+                + "\\" + prodSite.replace(' ','_')
+                + "\\"  + resource.getName().replace(' ','_') + ".json");
+        if(!resourceFile.exists()){
+            try {
+                resourceFile.createNewFile();
+                mapper.writeValue(resourceFile, resource);
+            } catch (IOException e) {
+                logger.log(Level.WARNING, e.getMessage());
+            }
+        }
     }
 
     public static SafefileFactionModel loadFactionResources (String factionName) {
@@ -102,5 +135,12 @@ public class SafeFileManager {
                 logger.log(Level.WARNING, e.getMessage());
             }
         }
+    }
+
+    /*
+     * Getter and Setter
+     */
+    public static File getPredefinedResourceFolder() {
+        return predefinedResourceFolder;
     }
 }

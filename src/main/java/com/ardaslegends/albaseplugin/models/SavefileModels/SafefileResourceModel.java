@@ -16,6 +16,13 @@ public class SafefileResourceModel {
     /*
      * Constructors
      */
+    public SafefileResourceModel (String name, int mcID, int data, int amount, String lotrEnchant) {
+        this.name = name;
+        this.minecraftID = mcID;
+        this.data = data;
+        this.amount = amount;
+        this.lotrEnchant = lotrEnchant;
+    }
     public SafefileResourceModel (String name) {
         this.name = name;
     }

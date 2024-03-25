@@ -2,6 +2,7 @@ package com.ardaslegends.albaseplugin.alapiclients;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.models.BackendModels.*;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -228,7 +229,7 @@ public class ALApiClient {
                 HttpEntity entity = response.getEntity();
                 try {
                     String entityString = EntityUtils.toString(entity);
-                    claimbuilds = mapper.readValue(entityString, ClaimbuildResponseWrapper.class).getContent();
+                    claimbuilds = mapper.readValue(entityString, new TypeReference<List<BackendClaimbuildModel>>() {});
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

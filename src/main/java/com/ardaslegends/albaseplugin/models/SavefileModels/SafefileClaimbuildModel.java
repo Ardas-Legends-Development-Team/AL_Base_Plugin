@@ -2,6 +2,7 @@ package com.ardaslegends.albaseplugin.models.SavefileModels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,9 +17,11 @@ public class SafefileClaimbuildModel {
 
     public SafefileClaimbuildModel(String name) {
         this.name = name;
+        resources = new ArrayList<>();
     }
 
     public SafefileClaimbuildModel() {
+        resources = new ArrayList<>();
     }
 
     public void addResource (SafefileResourceModel resource) {

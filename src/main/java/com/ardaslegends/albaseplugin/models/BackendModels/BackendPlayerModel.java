@@ -1,15 +1,12 @@
 package com.ardaslegends.albaseplugin.models.BackendModels;
 
-import com.ardaslegends.albaseplugin.alapiclients.deseralizers.CustomPlayerDeserializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * This is a Model for a Player.
  * This Model is used for the backend call of getting a Player from the backend
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(using = CustomPlayerDeserializer.class)
 public class BackendPlayerModel {
     private String ign;
     private String faction;

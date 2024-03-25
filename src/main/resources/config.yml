@@ -9,3 +9,4 @@ backend:
 feature:
   stockpile: true
   rpchar: true
+  monthly-resources: true

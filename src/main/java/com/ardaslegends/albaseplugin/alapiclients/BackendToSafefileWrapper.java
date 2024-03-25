@@ -25,6 +25,7 @@ public class BackendToSafefileWrapper {
      * one FactionModel has a List of RegionModels
      * one RegionModel has a List of ClaimbuildModels
      * one ClaimbuildModel has a List of ResourceModels
+     *
      * @param factionName The name of the faction
      * @param claimbuilds The list of claimbuilds
      * @return The SafefileFactionModel through which everything is accessible
@@ -58,7 +59,7 @@ public class BackendToSafefileWrapper {
                 //Create the Resource SafefileModels for the claimbuild and add them to the ResourceList
                 for (BackendProductionSiteModel prodSiteModel : cbModel.getProductionSites()) {
                     //Fetch information from a json based on the name and put it into the resource
-                    SafefileResourceModel resource = SafeFileManager.loadResource(prodSiteModel.getProductionSite().getResource());
+                    SafefileResourceModel resource = SafeFileManager.loadResource(prodSiteModel.getProductionSite().getResource(), prodSiteModel.getProductionSite().getType());
                     claimbuild.addResource(resource);
                 }
                 //Add the claimbuild to the regions ClaimbuildList

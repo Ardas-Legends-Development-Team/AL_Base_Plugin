@@ -1,6 +1,8 @@
 package com.ardaslegends.albaseplugin.models.BackendModels;
 
+import com.ardaslegends.albaseplugin.alapiclients.deseralizers.CustomClaimbuildDeserializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
  * This Model is used for the backend call of getting a Claimbuild from the backend
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonDeserialize(using = CustomClaimbuildDeserializer.class)
 public class BackendClaimbuildModel {
     String name;
     int region;
@@ -44,5 +47,9 @@ public class BackendClaimbuildModel {
 
     public List<BackendProductionSiteModel> getProductionSites () {
         return productionSites;
+    }
+
+    public void setProductionSites (List<BackendProductionSiteModel> prodSites) {
+        this.productionSites = prodSites;
     }
 }

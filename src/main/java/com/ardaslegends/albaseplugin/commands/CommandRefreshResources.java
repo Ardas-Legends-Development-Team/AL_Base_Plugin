@@ -2,7 +2,10 @@ package com.ardaslegends.albaseplugin.commands;
 
 import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
+import com.ardaslegends.albaseplugin.alapiclients.BackendToSafefileWrapper;
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendClaimbuildModel;
+import com.ardaslegends.albaseplugin.models.SavefileModels.SafefileFactionModel;
+import com.ardaslegends.albaseplugin.resources.SafeFileManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,6 +43,8 @@ public class CommandRefreshResources implements CommandExecutor {
             }).collect(Collectors.toList());
             sender.sendMessage(msgPrefix + filteredClaimbuilds.size() + " Claimbuilds with Production Sites");
             //ToDo: use the BackendSafefileWrapper to wrap the BackendModels to SafefileModels and save them.
+            SafefileFactionModel faction = BackendToSafefileWrapper.wrapClaimbuildsOfFaction(factionname, filteredClaimbuilds);
+            SafeFileManager.overwriteFactionResources(faction);
         } else {
             sender.sendMessage(errorPrefix + "Wrong argument count.");
             return false;
