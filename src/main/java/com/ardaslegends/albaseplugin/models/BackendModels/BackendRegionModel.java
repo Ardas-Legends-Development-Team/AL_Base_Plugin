@@ -31,23 +31,11 @@ public class BackendRegionModel {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getRegion_type() {
         return region_type;
-    }
-
-    public void setRegion_type(String region_type) {
-        this.region_type = region_type;
     }
 }

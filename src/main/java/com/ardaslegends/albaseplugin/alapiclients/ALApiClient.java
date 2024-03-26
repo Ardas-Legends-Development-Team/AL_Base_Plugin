@@ -288,8 +288,12 @@ public class ALApiClient {
                                 + " "
                                 + response.getStatusLine().getReasonPhrase());
             }
+            if (!AL_Base_Plugin.getBackendOnline()) {
+                AL_Base_Plugin.setBackendOnline(true);
+            }
         } else {
             logger.log(Level.WARNING, "No response received from the backend");
+            AL_Base_Plugin.setBackendOnline(false);
         }
 
         return regionModel;

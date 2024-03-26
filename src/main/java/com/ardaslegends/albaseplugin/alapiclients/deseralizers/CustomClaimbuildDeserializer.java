@@ -16,8 +16,11 @@ import java.util.List;
 
 public class CustomClaimbuildDeserializer extends StdDeserializer {
 
-    ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
+    /*
+     * Constructors
+     */
     public CustomClaimbuildDeserializer () {
         this(null);
     }
@@ -26,18 +29,9 @@ public class CustomClaimbuildDeserializer extends StdDeserializer {
         super(vc);
     }
 
-    /**
-     * @param jsonParser
-     * @param deserializationContext
-     * @return
-     * @throws IOException
-     * @throws JacksonException
-     */
     @Override
-    public BackendClaimbuildModel deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        BackendClaimbuildModel cbModel;
-
-        JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+    public BackendClaimbuildModel deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException{
+         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
         String name = node.get("name").asText();
         int region = node.get("region").asInt();
@@ -46,7 +40,7 @@ public class CustomClaimbuildDeserializer extends StdDeserializer {
         String productionSiteString = node.get("productionSites").toString();
         List<BackendProductionSiteModel> productionSites = mapper.readValue(productionSiteString, new TypeReference<List<BackendProductionSiteModel>>() {});
 
-        cbModel = new BackendClaimbuildModel(name, region, claimBuildType);
+        BackendClaimbuildModel cbModel = new BackendClaimbuildModel(name, region, claimBuildType);
         cbModel.setProductionSites(productionSites);
 
         return cbModel;

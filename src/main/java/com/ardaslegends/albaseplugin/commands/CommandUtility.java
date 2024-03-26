@@ -14,7 +14,7 @@ public class CommandUtility implements CommandExecutor {
 
     /**
      * onCommand is being run if the command alutil was executed
-     * The Syntax for the command is simple: /alutil [getItemStack]
+     * The Syntax for the command is simple: /alutil [getItemInfo]
      *
      * @param sender Source of the command
      * @param command Command which was executed
@@ -25,7 +25,7 @@ public class CommandUtility implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 1) {
-            if (args[0].equalsIgnoreCase("getItemStack")) {
+            if (args[0].equalsIgnoreCase("getItemInfo")) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
                     int heldItemSlot = player.getInventory().getHeldItemSlot();
@@ -35,7 +35,7 @@ public class CommandUtility implements CommandExecutor {
                         sender.sendMessage(errorPrefix + "You need to hold an Item in your hand to run this cmd.");
                         return true;
                     }
-                    sender.sendMessage(msgPrefix + "ItemStack is: " + heldItem.toString());
+                    sender.sendMessage(msgPrefix + "Item Info is: " + heldItem.toString());
                 }
             }
         } else {

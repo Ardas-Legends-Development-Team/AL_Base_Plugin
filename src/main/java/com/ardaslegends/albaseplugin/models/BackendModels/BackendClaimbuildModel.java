@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * This is a Model for a Claimbuild.
- * This Model is used for the backend call of getting a Claimbuild from the backend
+ * This Model is used for the backend call of getting a Claimbuild from the backend.
+ * The Model uses a Custom Deserializer to properly be mapped from a Json String.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonDeserialize(using = CustomClaimbuildDeserializer.class)
