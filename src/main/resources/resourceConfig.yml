@@ -1,0 +1,69 @@
+# This configuration file is used to configure the aspects of the monthly resources feature.
+# You can define the Items used as buttons in the resource Menu
+# The default values are based on the Ardas Legends configuration.
+---
+#Region Type Buttons
+region:
+  sea:
+    id: 333
+  land:
+    id: 2
+  hill:
+    id: 3
+    dataInfo: 0
+  ice:
+    id: 174
+  desert:
+    id: 12
+    dataInfo: 0
+  forest:
+    id: 6
+    dataInfo: 0
+  swamp:
+    id: 457
+  jungle:
+    id: 17
+    dataInfo: 3
+  mountain:
+    id: 1
+
+#Claimbuild Type Buttons
+claimbuild:
+  hamlet:
+    id: 170
+  village:
+    id: 4116
+  town:
+    id: 355
+  capital:
+    id: 4346
+    dataInfo: 31
+  stronghold:
+    id: 176
+
+#ProductionSite Type Buttons
+productionSite:
+  farm:
+    id: 292
+  fishing-lodge:
+    id: 346
+  mine:
+    id: 257
+  quarry:
+    id: 4316
+  slaughterhouse:
+    id: 261
+  orchard:
+    id: 260
+  lumber-camp:
+    id: 258
+  income:
+    id: 4185
+    dataInfo: 1
+  pearl-fisher:
+    id: 4854
+  house-of-lore:
+    id: 340
+  dye-house:
+    id: 351
+    dataInfo: 0

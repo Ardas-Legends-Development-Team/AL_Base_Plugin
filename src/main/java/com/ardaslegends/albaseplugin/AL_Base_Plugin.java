@@ -3,10 +3,7 @@ package com.ardaslegends.albaseplugin;
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
 import com.ardaslegends.albaseplugin.commands.*;
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
-import com.ardaslegends.albaseplugin.resources.PredefinedResources;
-import com.ardaslegends.albaseplugin.resources.Reloadables;
-import com.ardaslegends.albaseplugin.resources.SafeFileManager;
-import com.ardaslegends.albaseplugin.resources.StockpileConfig;
+import com.ardaslegends.albaseplugin.resources.*;
 import com.ardaslegends.albaseplugin.tabcompletion.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -46,6 +43,8 @@ public final class AL_Base_Plugin extends JavaPlugin {
         saveDefaultConfig();
         //Setting up the stockpileConfig.yml
         StockpileConfig.addDefaults();
+        //Setting up the resourceConfig.yml
+        ResourceConfig.addDefaults();
 
         //set up the ALApiClient
         apiClient = new ALApiClient();
@@ -116,11 +115,12 @@ public final class AL_Base_Plugin extends JavaPlugin {
     }
 
     /**
-     * reloading all config files
+     * reloading all config files and the faction list from the backend
      */
     public void reload() {
         reloadConfig();
         StockpileConfig.reload();
+        ResourceConfig.reload();
         factions.addAll(setUpFactions());
     }
 
@@ -130,6 +130,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
      * - base: The base config of the plugin
      * - stockpile: The stockpileConfig
      * - factionList: The list of factions
+     * - resources: The resourceConfig
      * @param feature the feature to be reloaded
      */
     public void reload(Reloadables feature) {
@@ -142,6 +143,9 @@ public final class AL_Base_Plugin extends JavaPlugin {
                 break;
             case FACTIONS:
                 factions.addAll(setUpFactions());
+                break;
+            case RESOURCES:
+                ResourceConfig.reload();
                 break;
             default:
                 break;

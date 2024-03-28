@@ -17,6 +17,7 @@ public class TabCompletionALReload implements TabCompleter {
             List<String> options = new ArrayList<>();
             options.add(Reloadables.BASE.name());
             options.add(Reloadables.STOCKPILE.name());
+            options.add(Reloadables.RESOURCES.name());
             if (AL_Base_Plugin.getBackendOnline()) {
                 options.add(Reloadables.FACTIONS.name());
             }

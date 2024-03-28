@@ -30,6 +30,10 @@ public class BackendPlayerModel {
     /*
      * Getter and Setter
      */
+    public String getIgn () {
+        return ign;
+    }
+
     public String getFaction() {
         return faction;
     }

@@ -50,6 +50,10 @@ public class CommandALReload implements CommandExecutor {
                     }
                     sender.sendMessage(msgPrefix + "Successfully reloaded the faction list.");
                     break;
+                case "resources":
+                    AL_Base_Plugin.getPlugin().reload(Reloadables.RESOURCES);
+                    sender.sendMessage(msgPrefix + "Successfully reloaded the resource config.");
+                    break;
                 default:
                     sender.sendMessage(errorPrefix + "Nothing to reload with that name.");
                     break;
