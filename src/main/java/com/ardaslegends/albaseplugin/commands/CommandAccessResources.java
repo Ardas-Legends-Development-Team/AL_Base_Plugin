@@ -66,7 +66,9 @@ public class CommandAccessResources implements CommandExecutor {
                             logger.log(Level.INFO, executingPlayer.getName() + " tried to access the resources of "
                                     + playerModel.getFaction() + " but they are currently locked.");
                         }
-                        //ToDo: Have the player access the Inventory, he is the faction Leader
+                        //Accessing the Inventory, he is the faction Leader
+                        Inventory factionResource = createInventory(executingPlayer, playerModel.getFaction());
+                        executingPlayer.openInventory(factionResource);
                     } else {
                         sender.sendMessage(msgPrefix + "Sorry, only your faction leader can access the Monthly Resources.");
                         return true;
@@ -77,7 +79,9 @@ public class CommandAccessResources implements CommandExecutor {
                         logger.log(Level.INFO, executingPlayer.getName() + " tried to access the resources of "
                                 + playerModel.getFaction() + " but they are currently locked.");
                     }
-                    //ToDo: Have the player access the Inventory, as no Leader is present
+                    //Accessing the inventory because there is no faction Leader
+                    Inventory factionResource = createInventory(executingPlayer, playerModel.getFaction());
+                    executingPlayer.openInventory(factionResource);
                 }
             } else {
                 sender.sendMessage(errorPrefix + "This command can only be run by a player on the server, not on console.");
@@ -120,12 +124,14 @@ public class CommandAccessResources implements CommandExecutor {
         int regionCount = factionResources.getRegions().size();
         Inventory factionInventory = Bukkit.createInventory(player, defineInventorySize(regionCount), msgPrefix + factionName + "-Resources");
         for (SafefileRegionModel regionModel : factionResources.getRegions()) {
-            //ToDo: Set up the button per regionModel
-            ItemStack button = new ItemStack(1, 1, (short) 0);
-            ItemMeta buttonMeta = button.getItemMeta();
-            buttonMeta.setDisplayName(regionModel.getRegionNumber() + ": " + regionModel.getRegionName());
-            button.setItemMeta(buttonMeta);
-            factionInventory.addItem(button);
+            String configPath = "region" + regionModel.getRegionType().toLowerCase();
+            int itemId = resourceConfig.getInt(configPath + ".id");
+            short dataValue = resourceConfig.contains(configPath + ".dataInfo") ?  (short) resourceConfig.getInt(configPath + ".dataInfo") : 0;
+            ItemStack inventoryButton = new ItemStack(itemId, 1, dataValue);
+            ItemMeta inventoryButtonItemMeta = inventoryButton.getItemMeta();
+            inventoryButtonItemMeta.setDisplayName(regionModel.getRegionNumber() + ": " + regionModel.getRegionName());
+            inventoryButton.setItemMeta(inventoryButtonItemMeta);
+            factionInventory.addItem(inventoryButton);
         }
 
         return factionInventory;
