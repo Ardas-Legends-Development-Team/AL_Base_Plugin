@@ -92,6 +92,17 @@ public final class AL_Base_Plugin extends JavaPlugin {
             getCommand("refreshresources").setTabCompleter(new TabCompletionRefreshResources());
             logger.log(Level.INFO, msgPrefix + "Feature activated: Monthly Resources");
         }
+
+        if (getConfig().contains("feature.hunting") && getConfig().getBoolean("feature.hunting")) {
+            getCommand("hunt").setExecutor(new CommandHunt());
+            getCommand("hunt").setTabCompleter(new TabCompletionHunt());
+
+            getCommand("aid").setExecutor(new CommandAid());
+            getCommand("aid").setTabCompleter(new TabCompletionAid());
+
+            getCommand("endHunt").setExecutor(new CommandEndHunt());
+            getCommand("endHunt").setTabCompleter(new TabCompletionEndHunt());
+        }
     }
 
     /**
