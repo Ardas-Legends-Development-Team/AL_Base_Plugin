@@ -133,7 +133,6 @@ public class CommandAccessResources implements CommandExecutor {
             inventoryButton.setItemMeta(inventoryButtonItemMeta);
             factionInventory.addItem(inventoryButton);
         }
-
         return factionInventory;
     }
 
