@@ -28,17 +28,9 @@ public class HuntData {
         preparation = true; // Preparation
 
         chronometer.start();
-        final int[] totalTime = {120};
-        if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.hunt-prep-time")) {
-            totalTime[0] = AL_Base_Plugin.getPlugin().getConfig().getInt("hunting.hunt-prep-time");
-        }
-        final ArrayList<Integer>[] countdown;
-        if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.countdown")) {
-            countdown = new ArrayList[1];
-            countdown[0] = (ArrayList<Integer>) AL_Base_Plugin.getPlugin().getConfig().getIntegerList("hunting.countdown");
-        } else {
-            countdown = new ArrayList[]{new ArrayList<>(Arrays.asList(1,2,3,4,5))};
-        }
+        final int[] totalTime = {HuntsManager.PREP_TIME};
+        final ArrayList<Integer>[] countdown = new ArrayList[1];
+        countdown[0] = HuntsManager.COUNTDOWN;
 
         new BukkitRunnable() {
             @Override
@@ -67,7 +59,7 @@ public class HuntData {
                     if(preparation) {
                         preparation = false;
                         chronometer.start();
-                        countdown[0] = new ArrayList<>(countdown[0]);
+                        countdown[0] = new ArrayList<>(HuntsManager.COUNTDOWN);
                         totalTime[0] = HuntsManager.HUNT_TIME;
                         Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + " May the hunt begin!");
                         String message = "";
