@@ -2,6 +2,7 @@ package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
 import com.ardaslegends.albaseplugin.commands.*;
+import com.ardaslegends.albaseplugin.events.*;
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
 import com.ardaslegends.albaseplugin.resources.PredefinedResources;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
@@ -10,6 +11,7 @@ import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -40,6 +42,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
+        PluginManager pluginManager = Bukkit.getPluginManager();
 
         //Setting up the config files
         getConfig().options().copyDefaults();
@@ -102,6 +105,13 @@ public final class AL_Base_Plugin extends JavaPlugin {
 
             getCommand("endHunt").setExecutor(new CommandEndHunt());
             getCommand("endHunt").setTabCompleter(new TabCompletionEndHunt());
+
+            pluginManager.registerEvents(new OnAttackEvent(), this);
+            pluginManager.registerEvents(new OnDropItemEvent(), this);
+            pluginManager.registerEvents(new OnPlayerEntityInteractionEvent(), this);
+            pluginManager.registerEvents(new OnPlayerInteractionEvent(), this);
+            pluginManager.registerEvents(new OnPlayerTeleportEvent(), this);
+            pluginManager.registerEvents(new OnPlayerQuitEvent(), this);
         }
     }
 
