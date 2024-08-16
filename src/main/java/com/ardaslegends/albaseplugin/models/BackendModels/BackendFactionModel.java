@@ -1,4 +1,4 @@
-package com.ardaslegends.albaseplugin.models;
+package com.ardaslegends.albaseplugin.models.BackendModels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -7,24 +7,30 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * This Model is used for the backend call of getting a Faction from the backend
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FactionModel {
+public class BackendFactionModel {
     private String nameOfFaction;
     private String leaderIgn;
 
-    public FactionModel (String nameOfFaction) {
+    /*
+     * Constructors
+     */
+    public BackendFactionModel(String nameOfFaction) {
         this.nameOfFaction = nameOfFaction;
     }
 
-    public FactionModel () {
+    public BackendFactionModel() {
 
     }
 
+    /*
+     * Overwriting equals and hashCode
+     */
     @Override
     public boolean equals(Object object) {
 
         if (object != null) {
             if (object.getClass() == this.getClass()) {
-                FactionModel otherFactionModel = (FactionModel) object;
+                BackendFactionModel otherFactionModel = (BackendFactionModel) object;
                 return otherFactionModel.nameOfFaction.equals(this.nameOfFaction);
             }
         }
@@ -36,6 +42,9 @@ public class FactionModel {
         return nameOfFaction.hashCode();
     }
 
+    /*
+     * Getter and Setter
+     */
     public void setNameOfFaction(String nameOfFaction) {
         this.nameOfFaction = nameOfFaction;
     }

@@ -20,7 +20,7 @@ public class TabCompletionUtility implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
             List<String> options = new ArrayList<>();
-            options.add("getItemStack");
+            options.add("getItemInfo");
             return options;
         }
         return null;

@@ -28,12 +28,33 @@ commands:
     description: A utility command for Ardas Legends
     permission: al.staff.util
     usage: /<command> [getItemStack]
+  refreshresources:
+    description: A command to refresh a factions monthly resources
+    permission: al.staff.refreshresources
+    usage: /<command> [factionname]
+  hunt:
+    description: A command to start a hunt
+    permission: al.hunt.start
+    aliases: [ hunt ]
+    usage: /<command> [ign]
+  aid:
+    description: A command to aid in a hunt
+    permission: al.hunt.aid
+    aliases: [ aid ]
+    usage: /<command> [ign]
+  endHunt:
+    description: A command to end a hunt
+    permission: al.hunt.end
+    aliases: [ eh, end-hunt, endhunt ]
+    usage: /<command> (ign)
+
 
 permissions:
   al.*:
     description: Permission to run all commands of all ardas-legends-plugins
     default: op
     children:
+      al.hunt.*: true
       al.stockpile.*: true
       al.staff.*: true
       al.staff.rpchar: true
@@ -41,6 +62,23 @@ permissions:
       al.staff.reload: true
       al.staff.leaderactivity: true
       al.staff.util: true
+      al.staff.refreshresources: true
+  al.hunt.*:
+    description: Permission to use the hunting commands
+    default: not op
+    children:
+      al.hunt.start: true
+      al.hunt.aid: true
+      al.hunt.end: true
+  al.hunt.start:
+    description: Permission to run the hunt command
+    default: not op
+  al.hunt.aid:
+    description: Permission to run the aid command
+    default: not op
+  al.hunt.end:
+    description: Permission to run the endHunt command
+    default: not op
   al.stockpile.*:
     description: Permission to run the stockpile commands with it´s sub command.
     default: op
@@ -66,6 +104,7 @@ permissions:
       al.staff.reload: true
       al.staff.leaderactivity: true
       al.staff.util: true
+      al.staff.refreshresources: true
   al.staff.rpchar:
     description: Permission to run the /rpchar command
     default: op
@@ -80,4 +119,7 @@ permissions:
     default: op
   al.staff.util:
     description: Permission to run /alutil
+    default: op
+  al.staff.refreshresources:
+    description: Permission to run /refreshresources
     default: op
