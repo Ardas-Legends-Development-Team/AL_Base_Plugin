@@ -24,3 +24,9 @@ ___
 ## Version: 1.0.3:
 ### New:
 * add the command /alutil with TabCompletion
+
+---
+## Version: 1.1.0
+### New:
+* added the hunting functionality with the commands /hunt, /aid and /endhunt
+* added custom recipies for dropper, dispencer and small pouches

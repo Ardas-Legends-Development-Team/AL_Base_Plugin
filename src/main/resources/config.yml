@@ -13,7 +13,7 @@ feature:
   hunting: true
 
 custom-recipe:
-  #small-pouch: true
+  small-pouch: true
   dropper: true
   dispenser: true
 
