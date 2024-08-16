@@ -10,3 +10,16 @@ feature:
   stockpile: true
   rpchar: true
   monthly-resources: true
+  hunting: true
+
+custom-recipe:
+  #small-pouch: true
+  dropper: true
+  dispenser: true
+
+hunting:
+  hunt-prep-time: 7
+  hunt-time: 30
+  hunter-cooldown: 30
+  travel-distance: 200 # Number of blocks you can move in one second before rollback
+  countdown: [1, 2, 3, 4, 5, 10, 30]
