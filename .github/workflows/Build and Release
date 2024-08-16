@@ -1,0 +1,46 @@
+name: Build and Release
+
+# Define the trigger for the workflow
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    # Define the operating system for the job
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      # Use the actions/checkout action to clone the repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      # Use actions/setup-java action to set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Build JAR
+      # Run Maven to build the project
+      run: mvn clean package
+
+    - name: Upload JAR
+      # Upload the generated JAR file as an artifact
+      # The name of the jar should always contain the version number of the release.
+      # Therefor the tagname is used as they follow the convention `vx.x.x`.
+      uses: actions/upload-artifact@v2
+      with:
+        name: al-base-plugin-${{ github.event.release.tag_name }}.jar
+        path: target/*.jar
+
+    - name: Attach JAR to Release
+      # Attach the uploaded JAR file to the release
+      id: attach_to_release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: target/*.jar
+        asset_name: al-base-plugin-${{ github.event.release.tag_name }}.jar
+        asset_content_type: application/java-archive
+        token: ${{ secrets.GITHUB_TOKEN }}

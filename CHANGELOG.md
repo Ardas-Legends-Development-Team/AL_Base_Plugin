@@ -20,3 +20,7 @@ ___
 ## Version: 1.0.2:
 ### Changed:
 * added a config to toggle the backend connection attempt at the start of the server
+___
+## Version: 1.0.3:
+### New:
+* add the command /alutil with TabCompletion
