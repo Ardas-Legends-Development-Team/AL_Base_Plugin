@@ -15,7 +15,7 @@ public class OnAttackEvent implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event) {
-        if(event.getDamager().getType() == EntityType.PLAYER) {
+        if(event.getDamager().getType() == EntityType.PLAYER && event.getEntityType() == EntityType.PLAYER) {
             Player attacker = (Player) event.getDamager();
             Player victim = (Player) event.getEntity();
             int huntNumber = HuntsManager.isParticipating(attacker);

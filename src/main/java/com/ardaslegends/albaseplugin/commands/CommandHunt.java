@@ -1,6 +1,6 @@
 package com.ardaslegends.albaseplugin.commands;
 
-import com.ardaslegends.albaseplugin.repository.ChatConstants;
+import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.repository.HuntsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,8 +24,8 @@ public class CommandHunt implements CommandExecutor {
         }
 
         if(args.length == 0) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " Please enter the player name that you wish to hunt like follow: /hunt Jqlo");
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " Make sure you're also 2000 blocks or closer to that target to start the hunt");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " Please enter the player name that you wish to hunt like follow: /hunt Jqlo");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " Make sure you're also 2000 blocks or closer to that target to start the hunt");
             return true;
         } else if(args.length == 1) {
             String senderName = sender.getName();
@@ -36,7 +36,7 @@ public class CommandHunt implements CommandExecutor {
                     HuntsManager.startHunt(hunter, hunted);
                 }
             } else {
-                sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " Could not find that person online, make sure you typed his in game name correctly");
+                sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " Could not find that person online, make sure you typed his in game name correctly");
             }
         }
         return true;

@@ -1,10 +1,7 @@
 package com.ardaslegends.albaseplugin.tabcompletion;
 
-import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.repository.HuntsManager;
-import com.ardaslegends.albaseplugin.resources.Reloadables;
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -20,6 +17,11 @@ public class TabCompletionHunt implements TabCompleter {
         if (args.length == 1) {
             List<String> options = new ArrayList<>();
             //Adding Players that are online and not in a hunt
+            Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+                if (HuntsManager.isParticipating(player) == -1) {
+                    options.add(player.getName());
+                }
+            });
             return options;
         }
         return null;

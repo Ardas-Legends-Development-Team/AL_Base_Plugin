@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,11 +45,11 @@ public class HuntData {
                     if(timeIndex != -1) {
                         int timeLeft = countdown[0].get(timeIndex);
                         if(timeLeft <= 5) {
-                            Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + " " + ChatColor.BOLD + ChatColor.RED + remainingSeconds);
+                            Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + " " + ChatColor.BOLD + ChatColor.RED + remainingSeconds);
                         } else {
                             String status = "begins";
                             if(!preparation) status = "ends";
-                            Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + " Hunt " + status + " in "
+                            Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + " Hunt " + status + " in "
                                     + ChatColor.BOLD + ChatColor.RED + timeLeft + ChatColor.RESET + " seconds");
                         }
                         countdown[0].remove(timeIndex);
@@ -61,7 +60,7 @@ public class HuntData {
                         chronometer.start();
                         countdown[0] = new ArrayList<>(HuntsManager.COUNTDOWN);
                         totalTime[0] = HuntsManager.HUNT_TIME;
-                        Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + " May the hunt begin!");
+                        Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + " May the hunt begin!");
                         String message = "";
                         message +=  ChatColor.GOLD + "---------" + ChatColor.WHITE + " [ List of Participants ] " + ChatColor.GOLD + "---------\n";
                         message +=  ChatColor.RED + "Hunters: §r" + "\n";
@@ -80,7 +79,7 @@ public class HuntData {
                     } else {
                         int huntIndex = HuntsManager.getHunt(hunter);
                         HuntData huntData = HuntsManager.getHunt(huntIndex);
-                        Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + " The hunt has ended!");
+                        Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + " The hunt has ended!");
 
                         String defenders = "";
                         int huntedSize = huntData.getDefendersParticipants().size();
@@ -91,7 +90,7 @@ public class HuntData {
                         }
                         String has = "has";
                         if(huntedSize > 1) has = "have";
-                        Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + " The hunted, " + defenders + ChatColor.RESET + ", " + has + " survived the hunt");
+                        Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + " The hunted, " + defenders + ChatColor.RESET + ", " + has + " survived the hunt");
                         HuntsManager.sendScoreBoard(huntData);
                         chronometer.stop();
                         HuntsManager.endHunt(huntIndex);

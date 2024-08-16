@@ -58,39 +58,39 @@ public class HuntsManager {
     }
 
     public static void participantTriesTeleports(Player player) {
-        Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + " " + player.getName() + ChatColor.RED + " tried to teleport during a hunt! Teleporting back the player to his old position");
+        Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + " " + player.getName() + ChatColor.RED + " tried to teleport during a hunt! Teleporting back the player to his old position");
     }
 
     public static boolean canHunt(Player hunter, Player hunted, CommandSender sender) {
         if(hunted.getUniqueId() == hunter.getUniqueId()) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You cannot hunt yourself!");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot hunt yourself!");
             return false;
         } else if(HuntsManager.isParticipating(hunter) != -1) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You are already in a hunt!");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You are already in a hunt!");
             return false;
         }
 
         UUID hunterID = hunter.getUniqueId();
         for (HuntData hunt : hunts) {
             if(hunt.getAttackersUUID().contains(hunter.getUniqueId())) {
-                sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You cannot hunt this hunter since he's already in a hunt.\n " +
+                sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot hunt this hunter since he's already in a hunt.\n " +
                         "You can join by typing " + ChatColor.ITALIC + ChatColor.GRAY + "/aid [HuntedName]");
                 return false;
             } else if(hunt.getDefendersUUID().contains(hunter.getUniqueId())) {
-                sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You cannot hunt this hunted player since he's already in a hunt.\n " +
+                sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot hunt this hunted player since he's already in a hunt.\n " +
                         "You can join by typing " + ChatColor.ITALIC + ChatColor.GRAY + "/aid [HunterName]");
                 return false;
             }
         }
 
         if(hunter.getLocation().distanceSquared(hunted.getLocation()) > 2000) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You cannot hunt this player since he's further than 2000 blocks from you.");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot hunt this player since he's further than 2000 blocks from you.");
             return false;
         } else {
             for(CooldownPlayer cooldownPlayer : cooldownPlayers) {
                 if(cooldownPlayer.player.equals(hunterID)) {
                     float timeRemaining = cooldownPlayer.getRemainingSeconds();
-                    sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You must wait " + (int)timeRemaining + " seconds before hunting again");
+                    sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You must wait " + (int)timeRemaining + " seconds before hunting again");
                     return false;
                 }
             }
@@ -102,9 +102,9 @@ public class HuntsManager {
     public static boolean startHunt(Player hunter, Player hunted) {
         hunts.add(new HuntData(hunter.getUniqueId(), hunted.getUniqueId()));
 
-        Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + ChatColor.BOLD + " " + ChatColor.RED + hunter.getName()
+        Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + ChatColor.BOLD + " " + ChatColor.RED + hunter.getName()
                 + ChatColor.RESET + " is starting soon a hunt against " + ChatColor.BOLD + ChatColor.AQUA + hunted.getName());
-        Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + ChatColor.RESET + " You can help either the hunter or hunted by typing: "
+        Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + ChatColor.RESET + " You can help either the hunter or hunted by typing: "
                 + ChatColor.ITALIC + ChatColor.GRAY + "/aid [PlayerName]" + ChatColor.RESET + " command during the 2 minutes of preparation");
 
         return true;
@@ -112,19 +112,19 @@ public class HuntsManager {
 
     public static boolean canAidPlayer(Player helper, Player target, CommandSender sender) {
         if(helper.getUniqueId() == target.getUniqueId()) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You cannot help yourself!");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot help yourself!");
             return false;
         } else if(HuntsManager.isParticipating(helper) != -1) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You are already in a hunt!");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You are already in a hunt!");
             return false;
         } else if(helper.getLocation().distanceSquared(target.getLocation()) > 2000) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You cannot help this player since he's further than 2000 blocks from you.");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot help this player since he's further than 2000 blocks from you.");
             return false;
         } else {
             for(CooldownPlayer cooldownPlayer : cooldownPlayers) {
                 if(cooldownPlayer.player.equals(helper.getUniqueId())) {
                     float timeRemaining = cooldownPlayer.getRemainingSeconds();
-                    sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You must wait " + (int)timeRemaining + " seconds before entering a hunt again");
+                    sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You must wait " + (int)timeRemaining + " seconds before entering a hunt again");
                     return false;
                 }
             }
@@ -146,7 +146,7 @@ public class HuntsManager {
                 huntData.addDefender(helper);
             }
 
-            Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + ChatColor.BOLD + " " + teamColor + helper.getName()
+            Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + ChatColor.BOLD + " " + teamColor + helper.getName()
                     + ChatColor.RESET + " is helping " + ChatColor.BOLD + "" + teamColor + target.getName() + " in the hunt!");
         }
     }
@@ -193,7 +193,7 @@ public class HuntsManager {
                 if(state == HuntStateEnum.DEFENDERS_WIN || state == HuntStateEnum.HUNTERS_WIN) {
                     String team = ChatColor.RED + "hunter(s)";
                     if(state == HuntStateEnum.DEFENDERS_WIN) team = ChatColor.AQUA + "hunted";
-                    Bukkit.broadcastMessage(ChatConstants.PREFIX_HUNT + ChatColor.RESET + " Congratulation to the " +
+                    Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + ChatColor.RESET + " Congratulation to the " +
                             team + ChatColor.RESET + "! You may loot their death chest(s)");
                     sendScoreBoard(hunt);
                     endHunt(i);
@@ -248,7 +248,7 @@ public class HuntsManager {
     }
 
     public static int isParticipating(Player player) {
-        UUID playerID = player.getUniqueId();
+        /*UUID playerID = player.getUniqueId();
         for (int i = 0; i < hunts.size(); i++) {
             if(hunts.get(i).getAttackersUUID().contains(playerID)) {
                 return i;
@@ -256,15 +256,18 @@ public class HuntsManager {
                 return i;
             }
         }
-        return -1;
+        return -1;*/
+        return getHunt(player.getUniqueId());
     }
 
     public static int getHunt(UUID uuid) {
-        for (int i = 0; i < hunts.size(); i++) {
-            if(hunts.get(i).getAttackersUUID().contains(uuid)) {
-                return i;
-            } else if(hunts.get(i).getDefendersUUID().contains(uuid)) {
-                return i;
+        if (hunts != null) {
+            for (int i = 0; i < hunts.size(); i++) {
+                if(hunts.get(i).getAttackersUUID().contains(uuid)) {
+                    return i;
+                } else if(hunts.get(i).getDefendersUUID().contains(uuid)) {
+                    return i;
+                }
             }
         }
         return -1;
