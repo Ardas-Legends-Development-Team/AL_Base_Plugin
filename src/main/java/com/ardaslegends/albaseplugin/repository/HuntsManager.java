@@ -248,7 +248,7 @@ public class HuntsManager {
     }
 
     public static int isParticipating(Player player) {
-        UUID playerID = player.getUniqueId();
+        /*UUID playerID = player.getUniqueId();
         for (int i = 0; i < hunts.size(); i++) {
             if(hunts.get(i).getAttackersUUID().contains(playerID)) {
                 return i;
@@ -256,15 +256,18 @@ public class HuntsManager {
                 return i;
             }
         }
-        return -1;
+        return -1;*/
+        return getHunt(player.getUniqueId());
     }
 
     public static int getHunt(UUID uuid) {
-        for (int i = 0; i < hunts.size(); i++) {
-            if(hunts.get(i).getAttackersUUID().contains(uuid)) {
-                return i;
-            } else if(hunts.get(i).getDefendersUUID().contains(uuid)) {
-                return i;
+        if (hunts != null) {
+            for (int i = 0; i < hunts.size(); i++) {
+                if(hunts.get(i).getAttackersUUID().contains(uuid)) {
+                    return i;
+                } else if(hunts.get(i).getDefendersUUID().contains(uuid)) {
+                    return i;
+                }
             }
         }
         return -1;

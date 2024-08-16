@@ -28,5 +28,16 @@ public class Recipes {
         dispenser.setIngredient('b', Material.BOW);
         dispenser.setIngredient('r', Material.GOLD_INGOT);
         plugin.getServer().addRecipe(dispenser);
+
+
+
+        ShapedRecipe pouch = new ShapedRecipe(new ItemStack(Material.addMaterial(4097, false)));
+        String[] pouchShape = {" s ",
+                "l l",
+                "lll"};
+        pouch.shape(pouchShape);
+        pouch.setIngredient('s', Material.STRING);
+        pouch.setIngredient('l', Material.LEATHER);
+        plugin.getServer().addRecipe(pouch);
     }
 }
