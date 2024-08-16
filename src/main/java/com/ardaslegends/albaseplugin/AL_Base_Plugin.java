@@ -4,6 +4,7 @@ import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
 import com.ardaslegends.albaseplugin.commands.*;
 import com.ardaslegends.albaseplugin.events.*;
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
+import com.ardaslegends.albaseplugin.repository.HuntsManager;
 import com.ardaslegends.albaseplugin.resources.PredefinedResources;
 import com.ardaslegends.albaseplugin.resources.Reloadables;
 import com.ardaslegends.albaseplugin.resources.SafeFileManager;
@@ -104,6 +105,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
         }
 
         if (getConfig().contains("feature.hunting") && getConfig().getBoolean("feature.hunting")) {
+            HuntsManager.init();
             getCommand("hunt").setExecutor(new CommandHunt());
             getCommand("hunt").setTabCompleter(new TabCompletionHunt());
 
@@ -119,6 +121,8 @@ public final class AL_Base_Plugin extends JavaPlugin {
             pluginManager.registerEvents(new OnPlayerInteractionEvent(), this);
             pluginManager.registerEvents(new OnPlayerTeleportEvent(), this);
             pluginManager.registerEvents(new OnPlayerQuitEvent(), this);
+            tick();
+          
             logger.log(Level.INFO, MSG_PREFIX + "Feature activated: Hunting");
         }
 
@@ -144,6 +148,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
         List<BackendFactionModel> factions = apiClient.getFactions();
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
         return factions;
+    }
+
+    public void tick() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, HuntsManager::tick, 0L, 20L);
     }
 
     /**
