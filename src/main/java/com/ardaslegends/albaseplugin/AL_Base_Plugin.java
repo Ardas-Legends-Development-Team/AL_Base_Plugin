@@ -11,6 +11,9 @@ import com.ardaslegends.albaseplugin.resources.StockpileConfig;
 import com.ardaslegends.albaseplugin.tabcompletion.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,10 +29,14 @@ public final class AL_Base_Plugin extends JavaPlugin {
     private static       AL_Base_Plugin     plugin;
     private static       ALApiClient apiClient;
     private static final Logger             logger      = Bukkit.getServer().getLogger();
-    private static final String             msgPrefix   = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
-    private static final String             errorPrefix = msgPrefix + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
     private static final List<BackendFactionModel>     factions           = new ArrayList<>();
     private static boolean backendOnline;
+
+
+    private static final String MSG_PREFIX = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
+    private static final String ERROR_PREFIX = MSG_PREFIX + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
+    public static final String PREFIX_HUNT = ChatColor.GOLD + " " + ChatColor.BOLD + "HUNT" + ChatColor.GRAY + " »" + ChatColor.RESET;
+    public static final String PREFIX_HUNT_WARNING = ChatColor.GRAY + "»" + ChatColor.RED;
 
     /**
      * onEnable is being run whenever the plugin is started.
@@ -75,7 +82,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
             //Registering the stockpile command
             getCommand("stockpile").setExecutor(new CommandStockpile());
             getCommand("stockpile").setTabCompleter(new TabCompletionStockpile());
-            logger.log(Level.INFO, msgPrefix + "Feature activated: Stockpile");
+            logger.log(Level.INFO, MSG_PREFIX + "Feature activated: Stockpile");
         }
 
         //Setting up the rpchar feature if enabled
@@ -83,7 +90,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
             //Registering the rpchar command
             getCommand("rpchar").setExecutor(new CommandRPChar());
             getCommand("rpchar").setTabCompleter(new TabCompletionRPChar());
-            logger.log(Level.INFO, msgPrefix + "Feature activated: Roleplay Characters");
+            logger.log(Level.INFO, MSG_PREFIX + "Feature activated: Roleplay Characters");
         }
 
         if (getConfig().contains("feature.monthly-resources") && getConfig().getBoolean("feature.monthly-resources")) {
@@ -93,7 +100,7 @@ public final class AL_Base_Plugin extends JavaPlugin {
 
             getCommand("refreshresources").setExecutor(new CommandRefreshResources());
             getCommand("refreshresources").setTabCompleter(new TabCompletionRefreshResources());
-            logger.log(Level.INFO, msgPrefix + "Feature activated: Monthly Resources");
+            logger.log(Level.INFO, MSG_PREFIX + "Feature activated: Monthly Resources");
         }
 
         if (getConfig().contains("feature.hunting") && getConfig().getBoolean("feature.hunting")) {
@@ -112,7 +119,10 @@ public final class AL_Base_Plugin extends JavaPlugin {
             pluginManager.registerEvents(new OnPlayerInteractionEvent(), this);
             pluginManager.registerEvents(new OnPlayerTeleportEvent(), this);
             pluginManager.registerEvents(new OnPlayerQuitEvent(), this);
+            logger.log(Level.INFO, MSG_PREFIX + "Feature activated: Hunting");
         }
+
+        setUpRecipes();
     }
 
     /**
@@ -134,6 +144,47 @@ public final class AL_Base_Plugin extends JavaPlugin {
         List<BackendFactionModel> factions = apiClient.getFactions();
         factions.forEach(factionModel -> logger.log(Level.INFO, factionModel.getName()));
         return factions;
+    }
+
+    /**
+     * This method sets up the customRecipes, that are enabled within the configuration file.
+     */
+    private void setUpRecipes() {
+        logger.log(Level.INFO, MSG_PREFIX + "Setting up recipes.");
+        if (getConfig().contains("custom-recipe.small-pouch") && getConfig().getBoolean("custom-recipe.small-pouch")) {
+            ShapedRecipe pouch = new ShapedRecipe(new ItemStack(Material.addMaterial(4097, false)));
+            String[] pouchShape = {" s ",
+                    "l l",
+                    "lll"};
+            pouch.shape(pouchShape);
+            pouch.setIngredient('s', Material.STRING);
+            pouch.setIngredient('l', Material.LEATHER);
+            plugin.getServer().addRecipe(pouch);
+            logger.log(Level.INFO, MSG_PREFIX + "Small Pouch Recipe has been added.");
+        }
+        if (getConfig().contains("custom-recipe.dropper") && getConfig().getBoolean("custom-recipe.dropper")) {
+            ShapedRecipe dropper = new ShapedRecipe(new ItemStack(Material.DROPPER));
+            String[] dropperShape = {"ccc",
+                    "cgc",
+                    "ccc"};
+            dropper.shape(dropperShape);
+            dropper.setIngredient('c', Material.COBBLESTONE);
+            dropper.setIngredient('g', Material.GOLD_INGOT);
+            plugin.getServer().addRecipe(dropper);
+            logger.log(Level.INFO, MSG_PREFIX + "Dropper Recipe has been added.");
+        }
+        if (getConfig().contains("custom-recipe.dispenser") && getConfig().getBoolean("custom-recipe.dispenser")) {
+            ShapedRecipe dispenser = new ShapedRecipe(new ItemStack(Material.DISPENSER));
+            String[] dispenserShape = {"ccc",
+                    "cbc",
+                    "cgc"};
+            dispenser.shape(dispenserShape);
+            dispenser.setIngredient('c', Material.COBBLESTONE);
+            dispenser.setIngredient('b', Material.BOW);
+            dispenser.setIngredient('g', Material.GOLD_INGOT);
+            plugin.getServer().addRecipe(dispenser);
+            logger.log(Level.INFO, MSG_PREFIX + "Dispenser Recipe has been added.");
+        }
     }
 
     /**
@@ -178,11 +229,11 @@ public final class AL_Base_Plugin extends JavaPlugin {
     }
 
     public static String getMsgPrefix() {
-        return msgPrefix;
+        return MSG_PREFIX;
     }
 
     public static String getErrorPrefix(){
-        return errorPrefix;
+        return ERROR_PREFIX;
     }
 
     public static List<BackendFactionModel> getFactions() {

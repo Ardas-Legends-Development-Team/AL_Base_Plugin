@@ -1,6 +1,6 @@
 package com.ardaslegends.albaseplugin.commands;
 
-import com.ardaslegends.albaseplugin.repository.ChatConstants;
+import com.ardaslegends.albaseplugin.AL_Base_Plugin;
 import com.ardaslegends.albaseplugin.repository.HuntData;
 import com.ardaslegends.albaseplugin.repository.HuntsManager;
 import org.bukkit.Bukkit;
@@ -25,8 +25,8 @@ public class CommandAid implements CommandExecutor {
         }
 
         if(args.length == 0) {
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " Please enter the player name that you wish to aid like follow: /aid Jqlo");
-            sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " Make sure you're also 2000 blocks or closer to that target to start the hunt");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " Please enter the player name that you wish to aid like follow: /aid Jqlo");
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " Make sure you're also 2000 blocks or closer to that target to start the hunt");
             return true;
         } else if(args.length == 1) {
             String senderName = sender.getName();
@@ -41,14 +41,14 @@ public class CommandAid implements CommandExecutor {
                             HuntsManager.aidPlayer(helper, helperTarget);
                         }
                     } else {
-                        sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " You're too late to come in help, the hunt has already begun");
+                        sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You're too late to come in help, the hunt has already begun");
                     }
 
                 } else {
-                    sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " " + helperTarget.getName() + " is not in a hunt currently");
+                    sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " " + helperTarget.getName() + " is not in a hunt currently");
                 }
             } else {
-                sender.sendMessage(ChatConstants.PREFIX_HUNT_WARNING + " Could not find that person online, make sure you typed his in game name correctly");
+                sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " Could not find that person online, make sure you typed his in game name correctly");
             }
         }
         return true;
