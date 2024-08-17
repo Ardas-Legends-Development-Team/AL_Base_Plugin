@@ -18,8 +18,9 @@ custom-recipe:
   dispenser: true
 
 hunting:
-  hunt-prep-time: 7
-  hunt-time: 30
-  hunter-cooldown: 30
+  hunt-prep-time: 7 # 120 (2minutes)
+  hunt-time: 30 # 600 (10 minutes)
+  hunt-range: 2000 # Maximal range for hunting someone
+  hunter-cooldown: 30 # 1800 (30 minutes)
   travel-distance: 200 # Number of blocks you can move in one second before rollback
   countdown: [1, 2, 3, 4, 5, 10, 30]

@@ -1,6 +1,7 @@
 package com.ardaslegends.albaseplugin.events;
 
 import com.ardaslegends.albaseplugin.repository.HuntData;
+import com.ardaslegends.albaseplugin.repository.HuntParticipant;
 import com.ardaslegends.albaseplugin.repository.HuntsManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,8 +17,11 @@ public class OnPlayerTeleportEvent implements Listener {
         if(huntNumber != -1) {
             HuntData hunt = HuntsManager.getHunt(huntNumber);
             if(hunt.isPlayerPresent(player)) {
-                HuntsManager.participantTriesTeleports(player);
-                event.setCancelled(true);
+                HuntParticipant participant = hunt.getParticipant(player);
+                if(participant.alive) {
+                    HuntsManager.participantTriesTeleports(player);
+                    event.setCancelled(true);
+                }
             }
         }
     }

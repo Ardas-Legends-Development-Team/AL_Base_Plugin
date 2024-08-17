@@ -18,6 +18,7 @@ public class HuntsManager {
     public static ArrayList<Integer> COUNTDOWN = new ArrayList<>(Arrays.asList(1,2,3,4,5,10));
     public static int HUNT_TIME = 600;
     public static int HUNTER_COOLDOWN = 600;
+    public static int HUNT_RANGE = 2000;
 
     public static void init() {
         hunts = new ArrayList<>();
@@ -28,14 +29,17 @@ public class HuntsManager {
         if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.hunt-prep-time")) {
             PREP_TIME = AL_Base_Plugin.getPlugin().getConfig().getInt("hunting.hunt-prep-time");
         }
-        if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.countdown")) {
-            COUNTDOWN = (ArrayList<Integer>) AL_Base_Plugin.getPlugin().getConfig().getIntegerList("hunting.countdown");
-        }
         if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.hunt-time")) {
             HUNT_TIME = AL_Base_Plugin.getPlugin().getConfig().getInt("hunting.hunt-time");
         }
+        if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.hunt-range")) {
+            HUNT_RANGE = AL_Base_Plugin.getPlugin().getConfig().getInt("hunting.hunt-range");
+        }
         if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.hunter-cooldown")) {
             HUNTER_COOLDOWN = AL_Base_Plugin.getPlugin().getConfig().getInt("hunting.hunter-cooldown");
+        }
+        if(AL_Base_Plugin.getPlugin().getConfig().contains("hunting.countdown")) {
+            COUNTDOWN = (ArrayList<Integer>) AL_Base_Plugin.getPlugin().getConfig().getIntegerList("hunting.countdown");
         }
     }
 
@@ -45,7 +49,7 @@ public class HuntsManager {
         for(HuntData huntData : hunts) {
             for(HuntParticipant participant : huntData.getParticipants()) {
                 Player player = Bukkit.getPlayer(participant.player);
-                if(player != null) {
+                if(player != null && participant.alive) {
                     float traveledDistance = (float) participant.lastLocation.distanceSquared(player.getLocation());
                     if(traveledDistance > TRAVEL_DISTANCE) {
                         player.teleport(participant.lastLocation);
@@ -83,8 +87,8 @@ public class HuntsManager {
             }
         }
 
-        if(hunter.getLocation().distanceSquared(hunted.getLocation()) > 2000) {
-            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot hunt this player since he's further than 2000 blocks from you.");
+        if(getDistance(hunted, hunter) > HUNT_RANGE) {
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot hunt this player since he's further than " + HUNT_RANGE + " blocks from you.");
             return false;
         } else {
             for(CooldownPlayer cooldownPlayer : cooldownPlayers) {
@@ -95,7 +99,6 @@ public class HuntsManager {
                 }
             }
         }
-
         return true;
     }
 
@@ -117,8 +120,8 @@ public class HuntsManager {
         } else if(HuntsManager.isParticipating(helper) != -1) {
             sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You are already in a hunt!");
             return false;
-        } else if(helper.getLocation().distanceSquared(target.getLocation()) > 2000) {
-            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot help this player since he's further than 2000 blocks from you.");
+        } else if(getDistance(helper, target) > HUNT_RANGE) {
+            sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot help this player since he's further than " + HUNT_RANGE + " blocks from you.");
             return false;
         } else {
             for(CooldownPlayer cooldownPlayer : cooldownPlayers) {
@@ -147,7 +150,7 @@ public class HuntsManager {
             }
 
             Bukkit.broadcastMessage(AL_Base_Plugin.PREFIX_HUNT + ChatColor.BOLD + " " + teamColor + helper.getName()
-                    + ChatColor.RESET + " is helping " + ChatColor.BOLD + "" + teamColor + target.getName() + " in the hunt!");
+                    + ChatColor.RESET + " is helping " + ChatColor.BOLD + "" + teamColor + target.getName() + ChatColor.RESET + " in the hunt!");
         }
     }
 
@@ -221,6 +224,12 @@ public class HuntsManager {
             teamColor = "" + ChatColor.RED;
         }
         return teamColor;
+    }
+
+    public static float getDistance(Player playerA, Player playerB) {
+        float dx = playerA.getLocation().getBlockX() - playerB.getLocation().getBlockX();
+        float dz = playerA.getLocation().getBlockZ() - playerB.getLocation().getBlockZ();
+        return (float) Math.sqrt((dx*dx) + (dz*dz));
     }
 
     private static HuntStateEnum haveWon(HuntParticipant deadParticipant, HuntData hunt) {
