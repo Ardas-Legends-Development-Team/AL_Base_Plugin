@@ -82,8 +82,10 @@ public class HuntsManager {
                 return false;
             }
         }
-
-        if(hunter.getLocation().distanceSquared(hunted.getLocation()) > 2000) {
+        float dx = hunter.getLocation().getBlockX() - hunted.getLocation().getBlockX();
+        float dz = hunter.getLocation().getBlockZ() - hunted.getLocation().getBlockZ();
+        float distance = (float) Math.sqrt((dx*dx) + (dz*dz));
+        if(distance > 2000) {
             sender.sendMessage(AL_Base_Plugin.PREFIX_HUNT_WARNING + " You cannot hunt this player since he's further than 2000 blocks from you.");
             return false;
         } else {
