@@ -29,7 +29,7 @@ public class HuntData {
         chronometer.start();
         final int[] totalTime = {HuntsManager.PREP_TIME};
         final ArrayList<Integer>[] countdown = new ArrayList[1];
-        countdown[0] = HuntsManager.COUNTDOWN;
+        countdown[0] = new ArrayList<>(HuntsManager.COUNTDOWN);
 
         new BukkitRunnable() {
             @Override
