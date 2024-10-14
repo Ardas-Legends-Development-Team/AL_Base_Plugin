@@ -12,6 +12,10 @@ commands:
     description: The command for stockpile features
     permission: al.stockpile.*
     usage: /<command> [info|stored|add] {faction}
+  deposit:
+    description: The command for deposit features
+    permission: al.deposit.*
+    usage: /<command> [deposit|info|withdraw] {faction} {value}
   rpchar:
     description: The command to set a rpchar-player's title, nick, suffix and permissions
     permission: al.staff.rpchar
@@ -56,13 +60,8 @@ permissions:
     children:
       al.hunt.*: true
       al.stockpile.*: true
+      al.deposit.*: true
       al.staff.*: true
-      al.staff.rpchar: true
-      al.staff.stockpileStoredFaction: true
-      al.staff.reload: true
-      al.staff.leaderactivity: true
-      al.staff.util: true
-      al.staff.refreshresources: true
   al.hunt.*:
     description: Permission to use the hunting commands
     default: not op
@@ -99,12 +98,25 @@ permissions:
     description: Permission to run all ardas legends staff commands
     default: op
     children:
+      al.staff.deposit.*: true
       al.staff.rpchar: true
       al.staff.stockpileStoredFaction: true
       al.staff.reload: true
       al.staff.leaderactivity: true
       al.staff.util: true
       al.staff.refreshresources: true
+  al.staff.deposit.*:
+    description: Permission to run the deposit commands with it´s sub command.
+    default: op
+    children:
+      al.staff.deposit.info: true
+      al.staff.deposit.withdraw: true
+  al.staff.deposit.info:
+    description: Permission to run /deposit info
+    default: op
+  al.staff.deposit.withdraw:
+    description: Permission to run /deposit withdraw
+    default: op
   al.staff.rpchar:
     description: Permission to run the /rpchar command
     default: op

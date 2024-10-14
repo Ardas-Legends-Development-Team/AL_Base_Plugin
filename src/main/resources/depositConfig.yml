@@ -1,0 +1,13 @@
+# This configuration file is used to configure the aspects of the deposit feature.
+# You can define the value of different items, only items listed have a value and are accepted for deposit.
+# The default values are based on the Arda´s Legends Server using the Lord of the Rings Mod.
+---
+################
+# Allowed Items #
+################
+
+# Defining the accepted Items and their respective value .
+4819:
+  0: 1
+  1: 10
+  2: 100

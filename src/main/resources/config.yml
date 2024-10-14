@@ -4,19 +4,35 @@ backend:
   prod: true
   host: ardas-legends.kekx.eu
   port: 8080
+  secret: your_secret
+
+# The Plugin requires it´s own way of storing data, you can decide between Safefiles and a Database
+storage:
+  #type: safefile #Safefiles use files inside the plugin folder
+  type: database
+
+# The Database Connection to be used for the Plugin
+database:
+  url: jdbc:mysql://eu01-sql.pebblehost.com:3306 #your database url
+  username: customer_118567_ardaslegends #your username
+  password: LackofSound2010! #your password
+  driver: com.mysql.cj.jdbc.Driver #your driver
 
 #Feature toggle: Each feature can be toggled individually, true = feature on, false = feature of
 feature:
   stockpile: true
+  deposit: true
   rpchar: true
   monthly-resources: true
-  hunting: true
+  hunting: false
 
+# You can toggle each custom recipe on/off individually
 custom-recipe:
   #small-pouch: true
   dropper: true
   dispenser: true
 
+# Hunt configurations
 hunting:
   hunt-prep-time: 7 # 120 (2minutes)
   hunt-time: 30 # 600 (10 minutes)

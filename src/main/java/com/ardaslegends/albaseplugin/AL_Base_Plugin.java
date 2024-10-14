@@ -1,6 +1,7 @@
 package com.ardaslegends.albaseplugin;
 
 import com.ardaslegends.albaseplugin.alapiclients.ALApiClient;
+import com.ardaslegends.albaseplugin.alapiclients.PluginDBManager;
 import com.ardaslegends.albaseplugin.commands.*;
 import com.ardaslegends.albaseplugin.events.*;
 import com.ardaslegends.albaseplugin.models.BackendModels.BackendFactionModel;
@@ -32,7 +33,12 @@ public final class AL_Base_Plugin extends JavaPlugin {
     private static final Logger             logger      = Bukkit.getServer().getLogger();
     private static final List<BackendFactionModel>     factions           = new ArrayList<>();
     private static boolean backendOnline;
+    private static boolean databaseEnabled;
 
+    private static String dbURL;
+    private static String dbUser;
+    private static String dbPassword;
+    private static String dbDriver;
 
     private static final String MSG_PREFIX = ChatColor.GOLD + "[AL-Plugin] " + ChatColor.RESET;
     private static final String ERROR_PREFIX = MSG_PREFIX + ChatColor.DARK_RED + "[Error]" + ChatColor.RESET;
@@ -57,6 +63,16 @@ public final class AL_Base_Plugin extends JavaPlugin {
         saveDefaultConfig();
         //Setting up the stockpileConfig.yml
         StockpileConfig.addDefaults();
+
+        //set DB Parameters, if enabled
+        if (getConfig().contains("storage.type") && getConfig().getString("storage.type").equals("database")){
+            this.databaseEnabled = true;
+            this.dbURL = getConfig().getString("database.url");
+            this.dbUser = getConfig().getString("database.user");
+            this.dbPassword = getConfig().getString("database.password");
+            this.dbDriver = getConfig().getString("database.driver");
+            PluginDBManager.init();
+        }
 
         //set up the ALApiClient
         apiClient = new ALApiClient();
@@ -84,6 +100,14 @@ public final class AL_Base_Plugin extends JavaPlugin {
             getCommand("stockpile").setExecutor(new CommandStockpile());
             getCommand("stockpile").setTabCompleter(new TabCompletionStockpile());
             logger.log(Level.INFO, MSG_PREFIX + "Feature activated: Stockpile");
+        }
+
+        //Setting up the deposit feature if enabled
+        if (getConfig().contains("feature.deposit") && getConfig().getBoolean("feature.deposit")) {
+            //Registering the deposit command
+            getCommand("deposit").setExecutor(new CommandDeposit());
+            getCommand("deposit").setTabCompleter(new TabCompletionDeposit());
+            logger.log(Level.INFO, MSG_PREFIX + "Feature activated: Deposit");
         }
 
         //Setting up the rpchar feature if enabled
@@ -256,4 +280,23 @@ public final class AL_Base_Plugin extends JavaPlugin {
         backendOnline = backendStatus;
     }
 
+    public static boolean isDatabaseEnabled() {
+        return databaseEnabled;
+    }
+
+    public static String getDbURL() {
+        return dbURL;
+    }
+
+    public static String getDbUser() {
+        return dbUser;
+    }
+
+    public static String getDbPassword() {
+        return dbPassword;
+    }
+
+    public static String getDbDriver() {
+        return dbDriver;
+    }
 }
