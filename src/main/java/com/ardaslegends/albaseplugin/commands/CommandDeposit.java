@@ -146,6 +146,12 @@ public class CommandDeposit implements CommandExecutor {
         return true;
     }
 
+    /**
+     * Calculates the value of the item the player is holding.
+     *
+     * @param item the item the player is holding
+     * @return the value of the item, -1 if the item is null, -100 if the item is not usable for deposit
+     */
     private double calculateValue (ItemStack item) {
         if (item == null) {
             return -1;
@@ -164,6 +170,12 @@ public class CommandDeposit implements CommandExecutor {
         }
     }
 
+    /**
+     * Builds the response message for the value command.
+     *
+     * @param value the value of the item
+     * @return the response message
+     */
     private String buildValueResponse (double value) {
         switch ((int) value) {
             case -1:
